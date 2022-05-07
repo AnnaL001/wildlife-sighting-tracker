@@ -1,4 +1,4 @@
-package com.anna.wildlife_sighting_tracker.models.parameter_resolver;
+package com.anna.wildlife_sighting_tracker.parameter_resolver;
 
 import com.anna.wildlife_sighting_tracker.models.ThrivingAnimal;
 import org.junit.jupiter.api.extension.ExtensionContext;
