@@ -1,6 +1,6 @@
 package com.anna.wildlife_sighting_tracker.models;
 
-import com.anna.wildlife_sighting_tracker.models.parameter_resolver.ThrivingAnimalParameterResolver;
+import com.anna.wildlife_sighting_tracker.parameter_resolver.ThrivingAnimalParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,5 +36,14 @@ class ThrivingAnimalTest {
   @Test
   public void newThrivingAnimal_instantiatesWithCategory_true(ThrivingAnimal thrivingAnimal) {
     assertEquals(ThrivingAnimal.ANIMAL_CATEGORY, thrivingAnimal.getCategory());
+  }
+
+  @Test
+  public void equals_returnsTrueIfSamePropertyValues_true(ThrivingAnimal thrivingAnimal) {
+    ThrivingAnimal anotherThrivingAnimal = new ThrivingAnimal(
+            "https://upload.wikimedia.org/wikipedia/commons/1/1e/Cecil_the_lion_at_Hwange_National_Park_%284516560206%29.jpg",
+            "Lion King",
+            1);
+    assertEquals(thrivingAnimal, anotherThrivingAnimal);
   }
 }
