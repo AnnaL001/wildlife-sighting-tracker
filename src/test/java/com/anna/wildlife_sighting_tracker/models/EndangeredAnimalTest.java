@@ -1,6 +1,6 @@
 package com.anna.wildlife_sighting_tracker.models;
 
-import com.anna.wildlife_sighting_tracker.models.parameter_resolver.EndangeredAnimalParameterResolver;
+import com.anna.wildlife_sighting_tracker.parameter_resolver.EndangeredAnimalParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,5 +49,16 @@ class EndangeredAnimalTest {
   @DisplayName("Test to check that an EndangeredAnimal class instance instantiates with an animal category")
   public void newEndangeredAnimal_instantiatesWithCategory_true(EndangeredAnimal endangeredAnimal) {
     assertEquals(EndangeredAnimal.ANIMAL_CATEGORY, endangeredAnimal.getCategory());
+  }
+
+  @Test
+  public void equals_returnsTrueIfSamePropertyValues_true(EndangeredAnimal endangeredAnimal) {
+    EndangeredAnimal anotherEndangeredAnimal = new EndangeredAnimal(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm8oUUKb6GMiSeAnjvgDYnnFM1OAWPIMzqcm6-tyuEG6MxwGv8NMCdxkC8wLWOjJf7qs0&usqp=CAU",
+            "Zippy",
+            2,
+            EndangeredAnimal.OKAY,
+            EndangeredAnimal.YOUNG);
+    assertEquals(endangeredAnimal, anotherEndangeredAnimal);
   }
 }
