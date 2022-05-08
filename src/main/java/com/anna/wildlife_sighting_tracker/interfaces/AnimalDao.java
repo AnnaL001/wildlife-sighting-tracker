@@ -1,4 +1,4 @@
-package com.anna.wildlife_sighting_tracker.dao;
+package com.anna.wildlife_sighting_tracker.interfaces;
 
 import java.util.List;
 
