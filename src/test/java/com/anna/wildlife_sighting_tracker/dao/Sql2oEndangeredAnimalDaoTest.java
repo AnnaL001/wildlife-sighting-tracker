@@ -43,7 +43,7 @@ class Sql2oEndangeredAnimalDaoTest {
   }
 
   @Test
-  @DisplayName("Test that all added endangered animals can be retrieved from the database")
+  @DisplayName("Test that empty list is returned if no records in the database")
   public void getAll_returnsEmptyListIfNoRecords_true() {
     assertEquals(0, animalDao.getAll().size());
   }
