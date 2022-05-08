@@ -1,6 +1,6 @@
 package com.anna.wildlife_sighting_tracker.dao;
 
-import com.anna.wildlife_sighting_tracker.interfaces.AnimalDao;
+import com.anna.wildlife_sighting_tracker.interfaces.DatabaseDao;
 import com.anna.wildlife_sighting_tracker.models.ThrivingAnimal;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -8,7 +8,7 @@ import org.sql2o.Sql2oException;
 
 import java.util.List;
 
-public class Sql2oThrivingAnimalDao implements AnimalDao<ThrivingAnimal> {
+public class Sql2oThrivingAnimalDao implements DatabaseDao<ThrivingAnimal> {
   private final Sql2o sql2o;
 
   public Sql2oThrivingAnimalDao(Sql2o sql2o) {
@@ -16,17 +16,17 @@ public class Sql2oThrivingAnimalDao implements AnimalDao<ThrivingAnimal> {
   }
 
   @Override
-  public void add(ThrivingAnimal animal) {
+  public void add(ThrivingAnimal data) {
     String insertQuery = "INSERT INTO animals (image, name, speciesid, category) VALUES (:image, :name, :speciesId, :category)";
     try(Connection connection = sql2o.open()){
       int id = (int) connection.createQuery(insertQuery, true)
-              .addParameter("image", animal.getImage())
-              .addParameter("name", animal.getName())
-              .addParameter("speciesId", animal.getSpeciesId())
-              .addParameter("category", animal.getCategory())
+              .addParameter("image", data.getImage())
+              .addParameter("name", data.getName())
+              .addParameter("speciesId", data.getSpeciesId())
+              .addParameter("category", data.getCategory())
               .executeUpdate()
               .getKey();
-      animal.setId(id);
+      data.setId(id);
     } catch (Sql2oException exception){
       exception.printStackTrace();
     }
@@ -52,14 +52,14 @@ public class Sql2oThrivingAnimalDao implements AnimalDao<ThrivingAnimal> {
   }
 
   @Override
-  public void update(ThrivingAnimal animal) {
+  public void update(ThrivingAnimal data) {
     String updateQuery = "UPDATE animals SET (image, name, speciesid) = (:image, :name, :speciesId) WHERE id=:id";
     try(Connection connection = sql2o.open()){
       connection.createQuery(updateQuery)
-              .addParameter("image", animal.getImage())
-              .addParameter("name", animal.getName())
-              .addParameter("speciesId", animal.getSpeciesId())
-              .addParameter("id", animal.getId())
+              .addParameter("image", data.getImage())
+              .addParameter("name", data.getName())
+              .addParameter("speciesId", data.getSpeciesId())
+              .addParameter("id", data.getId())
               .executeUpdate();
     } catch (Sql2oException exception) {
       exception.printStackTrace();
@@ -80,9 +80,9 @@ public class Sql2oThrivingAnimalDao implements AnimalDao<ThrivingAnimal> {
 
   @Override
   public void deleteAll() {
-    String sql = "DELETE from animals WHERE category = 'Thriving'";
+    String deleteQuery = "DELETE from animals WHERE category = 'Thriving'";
     try (Connection connection = sql2o.open()) {
-      connection.createQuery(sql)
+      connection.createQuery(deleteQuery)
               .executeUpdate();
     } catch (Sql2oException exception){
       exception.printStackTrace();

@@ -1,6 +1,6 @@
 package com.anna.wildlife_sighting_tracker.dao;
 
-import com.anna.wildlife_sighting_tracker.interfaces.AnimalDao;
+import com.anna.wildlife_sighting_tracker.interfaces.DatabaseDao;
 import com.anna.wildlife_sighting_tracker.models.EndangeredAnimal;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -8,7 +8,7 @@ import org.sql2o.Sql2oException;
 
 import java.util.List;
 
-public class Sql2oEndangeredAnimalDao implements AnimalDao<EndangeredAnimal> {
+public class Sql2oEndangeredAnimalDao implements DatabaseDao<EndangeredAnimal> {
   private final Sql2o sql2o;
 
   public Sql2oEndangeredAnimalDao(Sql2o sql2o) {
@@ -16,19 +16,19 @@ public class Sql2oEndangeredAnimalDao implements AnimalDao<EndangeredAnimal> {
   }
 
   @Override
-  public void add(EndangeredAnimal animal) {
+  public void add(EndangeredAnimal data) {
     String insertQuery = "INSERT INTO animals (image, name, speciesid, health, age, category) VALUES (:image, :name, :speciesId, :health, :age, :category)";
     try(Connection connection = sql2o.open()){
       int id = (int) connection.createQuery(insertQuery, true)
-              .addParameter("image", animal.getImage())
-              .addParameter("name", animal.getName())
-              .addParameter("speciesId", animal.getSpeciesId())
-              .addParameter("health", animal.getHealth())
-              .addParameter("age", animal.getAge())
-              .addParameter("category", animal.getCategory())
+              .addParameter("image", data.getImage())
+              .addParameter("name", data.getName())
+              .addParameter("speciesId", data.getSpeciesId())
+              .addParameter("health", data.getHealth())
+              .addParameter("age", data.getAge())
+              .addParameter("category", data.getCategory())
               .executeUpdate()
               .getKey();
-      animal.setId(id);
+      data.setId(id);
     } catch (Sql2oException exception){
       exception.printStackTrace();
     }
@@ -54,16 +54,16 @@ public class Sql2oEndangeredAnimalDao implements AnimalDao<EndangeredAnimal> {
   }
 
   @Override
-  public void update(EndangeredAnimal animal) {
+  public void update(EndangeredAnimal data) {
     String updateQuery = "UPDATE animals SET (image, name, speciesid, health, age) = (:image, :name, :speciesId, :health, :age) WHERE id=:id";
     try(Connection connection = sql2o.open()){
       connection.createQuery(updateQuery)
-              .addParameter("image", animal.getImage())
-              .addParameter("name", animal.getName())
-              .addParameter("speciesId", animal.getSpeciesId())
-              .addParameter("health", animal.getHealth())
-              .addParameter("age", animal.getAge())
-              .addParameter("id", animal.getId())
+              .addParameter("image", data.getImage())
+              .addParameter("name", data.getName())
+              .addParameter("speciesId", data.getSpeciesId())
+              .addParameter("health", data.getHealth())
+              .addParameter("age", data.getAge())
+              .addParameter("id", data.getId())
               .executeUpdate();
     } catch (Sql2oException exception) {
       exception.printStackTrace();
@@ -84,9 +84,9 @@ public class Sql2oEndangeredAnimalDao implements AnimalDao<EndangeredAnimal> {
 
   @Override
   public void deleteAll() {
-    String sql = "DELETE from animals WHERE category = 'Endangered'";
+    String deleteQuery = "DELETE from animals WHERE category = 'Endangered'";
     try (Connection connection = sql2o.open()) {
-      connection.createQuery(sql)
+      connection.createQuery(deleteQuery)
               .executeUpdate();
     } catch (Sql2oException exception){
       exception.printStackTrace();
