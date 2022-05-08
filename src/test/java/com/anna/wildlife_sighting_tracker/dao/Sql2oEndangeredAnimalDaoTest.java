@@ -35,7 +35,25 @@ class Sql2oEndangeredAnimalDaoTest {
     assertNotEquals(initialId, endangeredAnimal.getId());
   }
 
+  @Test
+  @DisplayName("Test that all added endangered animals can be retrieved from the database")
+  public void getAll_returnsAddedEndangeredAnimals_true(EndangeredAnimal endangeredAnimal) {
+    animalDao.add(endangeredAnimal);
+    assertEquals(1, animalDao.getAll().size());
+  }
 
+  @Test
+  @DisplayName("Test that all added endangered animals can be retrieved from the database")
+  public void getAll_returnsEmptyListIfNoRecords_true(EndangeredAnimal endangeredAnimal) {
+    assertEquals(0, animalDao.getAll().size());
+  }
+
+  @Test
+  @DisplayName("Test that an endangered animal can be retrieved from the database")
+  public void get_returnsEndangeredAnimalWithSameId_true(EndangeredAnimal endangeredAnimal) {
+    animalDao.add(endangeredAnimal);
+    assertEquals(endangeredAnimal, animalDao.get(endangeredAnimal.getId()));
+  }
 
   @AfterEach
   public void tearDown() {
