@@ -1,15 +1,18 @@
 package com.anna.wildlife_sighting_tracker.dao;
 
 import com.anna.wildlife_sighting_tracker.base.Animal;
-import com.anna.wildlife_sighting_tracker.interfaces.DatabaseDao;
+import com.anna.wildlife_sighting_tracker.interfaces.MutableDatabaseDao;
+import com.anna.wildlife_sighting_tracker.models.EndangeredAnimal;
 import com.anna.wildlife_sighting_tracker.models.Sighting;
+import com.anna.wildlife_sighting_tracker.models.ThrivingAnimal;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Sql2oSightingDao implements DatabaseDao<Sighting> {
+public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
   private final Sql2o sql2o;
 
   public Sql2oSightingDao(Sql2o sql2o) {
@@ -72,11 +75,36 @@ public class Sql2oSightingDao implements DatabaseDao<Sighting> {
 
   public void addAnimalToSighting(Sighting sighting, Animal animal){
     try(Connection connection = sql2o.open()) {
-      String sql = "INSERT INTO animals_sightings (animalid, sightingId) VALUES (:animalId, :sightingId)";
-      connection.createQuery(sql)
+      String insertQuery = "INSERT INTO animals_sightings (animalid, sightingId) VALUES (:animalId, :sightingId)";
+      connection.createQuery(insertQuery)
               .addParameter("animalId", animal.getId())
               .addParameter("sightingId", sighting.getId())
               .executeUpdate();
+    }
+  }
+
+  public List<Animal> getAnimals(int id){
+    try(Connection connection = sql2o.open()){
+      List<Animal> animals = new ArrayList<>();
+
+      String selectQuery = "SELECT animals.* FROM animals_sightings JOIN sightings ON (animals_sightings.sightingid = sightings.id)" +
+              "JOIN animals ON (animals_sightings.animalid = animals.id) WHERE sightings.id = :sightingId AND animals.category = 'Endangered'";
+      List<EndangeredAnimal> endangeredAnimals = connection.createQuery(selectQuery)
+              .addParameter("sightingId", id)
+              .throwOnMappingFailure(false)
+              .executeAndFetch(EndangeredAnimal.class);
+
+      String selectQuery2 = "SELECT animals.* FROM animals_sightings JOIN sightings ON (animals_sightings.sightingid = sightings.id)" +
+              "JOIN animals ON (animals_sightings.animalid = animals.id) WHERE sightings.id = :sightingId AND animals.category = 'Thriving'";
+
+      List<ThrivingAnimal> thrivingAnimals = connection.createQuery(selectQuery2)
+              .addParameter("sightingId", id)
+              .throwOnMappingFailure(false)
+              .executeAndFetch(ThrivingAnimal.class);
+
+      animals.addAll(endangeredAnimals);
+      animals.addAll(thrivingAnimals);
+      return animals;
     }
   }
 

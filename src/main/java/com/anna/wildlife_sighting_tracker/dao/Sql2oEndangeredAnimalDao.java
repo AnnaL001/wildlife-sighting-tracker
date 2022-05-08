@@ -1,6 +1,6 @@
 package com.anna.wildlife_sighting_tracker.dao;
 
-import com.anna.wildlife_sighting_tracker.interfaces.DatabaseDao;
+import com.anna.wildlife_sighting_tracker.interfaces.MutableDatabaseDao;
 import com.anna.wildlife_sighting_tracker.models.EndangeredAnimal;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -8,7 +8,7 @@ import org.sql2o.Sql2oException;
 
 import java.util.List;
 
-public class Sql2oEndangeredAnimalDao implements DatabaseDao<EndangeredAnimal> {
+public class Sql2oEndangeredAnimalDao implements MutableDatabaseDao<EndangeredAnimal> {
   private final Sql2o sql2o;
 
   public Sql2oEndangeredAnimalDao(Sql2o sql2o) {
