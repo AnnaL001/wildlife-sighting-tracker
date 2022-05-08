@@ -38,13 +38,17 @@ public class Sql2oEndangeredAnimalDao implements AnimalDao<EndangeredAnimal> {
     try(Connection connection = sql2o.open()){
       return connection.createQuery("SELECT * FROM animals WHERE category = 'Endangered'")
               .throwOnMappingFailure(false)
-              .executeAndFetch(EndangeredAnimal.class); //fetch a list
+              .executeAndFetch(EndangeredAnimal.class); //fetch a list of endangered animals
     }
   }
 
   @Override
   public EndangeredAnimal get(int id) {
-    return null;
+    try(Connection connection = sql2o.open()){
+      return connection.createQuery("SELECT * FROM animals WHERE id = :id AND category = 'Endangered'")
+              .addParameter("id", id)
+              .executeAndFetchFirst(EndangeredAnimal.class); //fetch an individual endangered animal
+    }
   }
 
   @Override
