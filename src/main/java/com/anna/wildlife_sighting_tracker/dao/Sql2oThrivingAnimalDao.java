@@ -1,7 +1,6 @@
 package com.anna.wildlife_sighting_tracker.dao;
 
 import com.anna.wildlife_sighting_tracker.interfaces.AnimalDao;
-import com.anna.wildlife_sighting_tracker.models.EndangeredAnimal;
 import com.anna.wildlife_sighting_tracker.models.ThrivingAnimal;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -54,12 +53,29 @@ public class Sql2oThrivingAnimalDao implements AnimalDao<ThrivingAnimal> {
 
   @Override
   public void update(ThrivingAnimal animal) {
-
+    String updateQuery = "UPDATE animals SET (image, name, speciesid) = (:image, :name, :speciesId) WHERE id=:id";
+    try(Connection connection = sql2o.open()){
+      connection.createQuery(updateQuery)
+              .addParameter("image", animal.getImage())
+              .addParameter("name", animal.getName())
+              .addParameter("speciesId", animal.getSpeciesId())
+              .addParameter("id", animal.getId())
+              .executeUpdate();
+    } catch (Sql2oException exception) {
+      exception.printStackTrace();
+    }
   }
 
   @Override
   public void delete(int id) {
-
+    String deleteQuery = "DELETE from animals WHERE id=:id AND category = 'Thriving'";
+    try (Connection connection = sql2o.open()) {
+      connection.createQuery(deleteQuery)
+              .addParameter("id", id)
+              .executeUpdate();
+    } catch (Sql2oException exception){
+      exception.printStackTrace();
+    }
   }
 
   @Override
