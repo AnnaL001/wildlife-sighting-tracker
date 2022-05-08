@@ -38,13 +38,18 @@ public class Sql2oThrivingAnimalDao implements AnimalDao<ThrivingAnimal> {
     try(Connection connection = sql2o.open()){
       return connection.createQuery("SELECT * FROM animals WHERE category = 'Thriving'")
               .throwOnMappingFailure(false)
-              .executeAndFetch(ThrivingAnimal.class); //fetch a list of endangered animals
+              .executeAndFetch(ThrivingAnimal.class); //fetch a list of thriving animals
     }
   }
 
   @Override
   public ThrivingAnimal get(int id) {
-    return null;
+    try(Connection connection = sql2o.open()){
+      return connection.createQuery("SELECT * FROM animals WHERE id = :id AND category = 'Thriving'")
+              .addParameter("id", id)
+              .throwOnMappingFailure(false)
+              .executeAndFetchFirst(ThrivingAnimal.class); //fetch an individual thriving animal
+    }
   }
 
   @Override
