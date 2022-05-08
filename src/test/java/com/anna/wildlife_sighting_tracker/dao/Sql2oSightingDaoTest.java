@@ -1,6 +1,8 @@
 package com.anna.wildlife_sighting_tracker.dao;
 
+import com.anna.wildlife_sighting_tracker.models.EndangeredAnimal;
 import com.anna.wildlife_sighting_tracker.models.Sighting;
+import com.anna.wildlife_sighting_tracker.parameter_resolver.EndangeredAnimalParameterResolver;
 import com.anna.wildlife_sighting_tracker.parameter_resolver.SightingParameterResolver;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
@@ -15,14 +17,17 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SightingParameterResolver.class)
+@ExtendWith(EndangeredAnimalParameterResolver.class)
 class Sql2oSightingDaoTest {
   private static Sql2oSightingDao sightingDao;
+  private static Sql2oEndangeredAnimalDao animalDao;
   private static Connection connection;
 
   @BeforeAll
   static void beforeAll() {
     Sql2o sql2o = new Sql2o("jdbc:postgresql://localhost:5432/wildlife_tracker_test", "anna", "SurMaRoute01$");
     sightingDao = new Sql2oSightingDao(sql2o);
+    animalDao = new Sql2oEndangeredAnimalDao(sql2o);
     connection = sql2o.open();
   }
 
@@ -96,6 +101,14 @@ class Sql2oSightingDaoTest {
     assertEquals(0, sightingDao.getAll().size());
   }
 
+  @Test
+  public void addSightingToAnimal_addsAnimalSighted(Sighting sighting, EndangeredAnimal endangeredAnimal) {
+    animalDao.add(endangeredAnimal);
+    sightingDao.add(sighting);
+    sightingDao.addAnimalToSighting(sighting, endangeredAnimal);
+    assertTrue(sightingDao.getAnimals(sighting.getId()).contains(endangeredAnimal));
+  }
+
   private Sighting setUpSighting(){
     return new Sighting(2,1, new Timestamp(new Date().getTime()));
   }
@@ -103,6 +116,7 @@ class Sql2oSightingDaoTest {
   @AfterEach
   public void tearDown() {
     sightingDao.deleteAll();
+    animalDao.deleteAll();
   }
 
   @AfterAll
