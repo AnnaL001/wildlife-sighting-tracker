@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public abstract class Animal {
   protected int id;
-  protected String imageUrl;
+  protected String image;
   protected String name;
   protected int speciesId;
   protected String category;
@@ -13,8 +13,8 @@ public abstract class Animal {
     return id;
   }
 
-  public String getImageUrl() {
-    return imageUrl;
+  public String getImage() {
+    return image;
   }
 
   public String getName() {
@@ -29,16 +29,20 @@ public abstract class Animal {
     return category;
   }
 
+  public void setId(int id) {
+    this.id = id;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Animal animal = (Animal) o;
-    return id == animal.id && speciesId == animal.speciesId && Objects.equals(imageUrl, animal.imageUrl) && Objects.equals(name, animal.name) && Objects.equals(category, animal.category);
+    return speciesId == animal.speciesId && Objects.equals(image, animal.image) && Objects.equals(name, animal.name) && Objects.equals(category, animal.category);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, imageUrl, name, speciesId, category);
+    return Objects.hash(image, name, speciesId, category);
   }
 }
