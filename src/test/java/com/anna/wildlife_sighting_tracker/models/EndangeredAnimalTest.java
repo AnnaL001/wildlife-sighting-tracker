@@ -18,7 +18,7 @@ class EndangeredAnimalTest {
   @Test
   @DisplayName("Test to check that an EndangeredAnimal class instance instantiates with an imageUrl")
   public void newEndangeredAnimal_instantiatesWithImageUrl_true(EndangeredAnimal endangeredAnimal) {
-    assertEquals("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm8oUUKb6GMiSeAnjvgDYnnFM1OAWPIMzqcm6-tyuEG6MxwGv8NMCdxkC8wLWOjJf7qs0&usqp=CAU", endangeredAnimal.getImageUrl());
+    assertEquals("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm8oUUKb6GMiSeAnjvgDYnnFM1OAWPIMzqcm6-tyuEG6MxwGv8NMCdxkC8wLWOjJf7qs0&usqp=CAU", endangeredAnimal.getImage());
   }
 
   @Test
@@ -36,7 +36,7 @@ class EndangeredAnimalTest {
   @Test
   @DisplayName("Test to check that an EndangeredAnimal class instance instantiates with a healthStatus")
   public void newEndangeredAnimal_instantiatesWithHealthStatus_true(EndangeredAnimal endangeredAnimal) {
-    assertEquals(EndangeredAnimal.OKAY, endangeredAnimal.getHealthStatus());
+    assertEquals(EndangeredAnimal.OKAY, endangeredAnimal.getHealth());
   }
 
   @Test

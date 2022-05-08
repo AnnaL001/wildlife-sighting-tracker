@@ -18,7 +18,7 @@ class ThrivingAnimalTest {
   @Test
   @DisplayName("Test to check that a ThrivingAnimal class instance instantiates with an image url")
   public void newThrivingAnimal_instantiatesWithAnImageUrl_true(ThrivingAnimal thrivingAnimal) {
-    assertEquals("https://upload.wikimedia.org/wikipedia/commons/1/1e/Cecil_the_lion_at_Hwange_National_Park_%284516560206%29.jpg", thrivingAnimal.getImageUrl());
+    assertEquals("https://upload.wikimedia.org/wikipedia/commons/1/1e/Cecil_the_lion_at_Hwange_National_Park_%284516560206%29.jpg", thrivingAnimal.getImage());
   }
 
   @Test
