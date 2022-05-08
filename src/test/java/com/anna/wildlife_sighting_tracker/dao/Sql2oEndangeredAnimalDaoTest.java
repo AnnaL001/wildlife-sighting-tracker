@@ -58,12 +58,13 @@ class Sql2oEndangeredAnimalDaoTest {
   @Test
   @DisplayName("Test that an endangered animal's data can be updated")
   public void update_updatesDataOfEndangeredAnimal_true(EndangeredAnimal endangeredAnimal) {
+    animalDao.add(endangeredAnimal);
     endangeredAnimal.setImage("https://wildlife_tracker/rhino.jpg");
     endangeredAnimal.setName("Cecil");
     endangeredAnimal.setSpeciesId(2);
     endangeredAnimal.setHealth(EndangeredAnimal.ILL);
     endangeredAnimal.setAge(EndangeredAnimal.NEWBORN);
-    animalDao.add(endangeredAnimal);
+    animalDao.update(endangeredAnimal);
     EndangeredAnimal foundAnimal = animalDao.get(endangeredAnimal.getId());
     assertEquals("https://wildlife_tracker/rhino.jpg", foundAnimal.getImage());
     assertEquals("Cecil", foundAnimal.getName());
@@ -78,6 +79,25 @@ class Sql2oEndangeredAnimalDaoTest {
     animalDao.add(endangeredAnimal);
     animalDao.delete(endangeredAnimal.getId());
     assertFalse(animalDao.getAll().contains(endangeredAnimal));
+  }
+
+  @Test
+  @DisplayName("Test that all endangered animals' data can be deleted")
+  public void deleteAll_deletesAllThrivingAnimals_true(EndangeredAnimal endangeredAnimal) {
+    animalDao.add(endangeredAnimal);
+    animalDao.add(setUpEndangeredAnimal());
+    animalDao.deleteAll();
+    assertEquals(0, animalDao.getAll().size());
+  }
+
+  private EndangeredAnimal setUpEndangeredAnimal(){
+    return new EndangeredAnimal(
+            "https://upload.wikimedia.org/wikipedia/commons/1/1e/Cecil_the_lion_at_Hwange_National_Park_%284516560206%29.jpg",
+            "Poppy",
+            1,
+            EndangeredAnimal.HEALTHY,
+            EndangeredAnimal.NEWBORN
+    );
   }
 
   @AfterEach
