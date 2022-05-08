@@ -1,5 +1,6 @@
 package com.anna.wildlife_sighting_tracker.dao;
 
+import com.anna.wildlife_sighting_tracker.interfaces.AnimalDao;
 import com.anna.wildlife_sighting_tracker.models.EndangeredAnimal;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -47,6 +48,7 @@ public class Sql2oEndangeredAnimalDao implements AnimalDao<EndangeredAnimal> {
     try(Connection connection = sql2o.open()){
       return connection.createQuery("SELECT * FROM animals WHERE id = :id AND category = 'Endangered'")
               .addParameter("id", id)
+              .throwOnMappingFailure(false)
               .executeAndFetchFirst(EndangeredAnimal.class); //fetch an individual endangered animal
     }
   }
@@ -83,7 +85,7 @@ public class Sql2oEndangeredAnimalDao implements AnimalDao<EndangeredAnimal> {
 
   @Override
   public void deleteAll() {
-    String sql = "DELETE from animals";
+    String sql = "DELETE from animals WHERE category = 'Endangered'";
     try (Connection connection = sql2o.open()) {
       connection.createQuery(sql)
               .executeUpdate();
