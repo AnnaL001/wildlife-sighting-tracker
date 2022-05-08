@@ -53,12 +53,32 @@ public class Sql2oEndangeredAnimalDao implements AnimalDao<EndangeredAnimal> {
 
   @Override
   public void update(EndangeredAnimal animal) {
-
+    String updateQuery = "UPDATE tasks SET (image, name, speciesid, health, age category) = (:image, :name, :speciesId, :health, :age, :category) WHERE id=:id";
+    try(Connection connection = sql2o.open()){
+      connection.createQuery(updateQuery)
+              .addParameter("image", animal.getImage())
+              .addParameter("name", animal.getName())
+              .addParameter("speciesId", animal.getSpeciesId())
+              .addParameter("health", animal.getHealth())
+              .addParameter("age", animal.getAge())
+              .addParameter("category", animal.getCategory())
+              .addParameter("id", animal.getId())
+              .executeUpdate();
+    } catch (Sql2oException exception) {
+      exception.printStackTrace();
+    }
   }
 
   @Override
   public void delete(int id) {
-
+    String deleteQuery = "DELETE from animals WHERE id=:id AND category = 'Endangered'";
+    try (Connection connection = sql2o.open()) {
+      connection.createQuery(deleteQuery)
+              .addParameter("id", id)
+              .executeUpdate();
+    } catch (Sql2oException exception){
+      exception.printStackTrace();
+    }
   }
 
   @Override
