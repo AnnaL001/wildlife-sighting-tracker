@@ -2,16 +2,16 @@ package com.anna.wildlife_sighting_tracker.interfaces;
 
 import java.util.List;
 
-public interface AnimalDao<T> {
+public interface DatabaseDao<T> {
   // CREATE
-  void add(T animal);
+  void add(T data);
 
   // READ
   List<T> getAll();
   T get(int id);
 
   // UPDATE
-  void update(T animal);
+  void update(T data);
 
   // DELETE
   void delete(int id);
