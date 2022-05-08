@@ -1,5 +1,6 @@
 package com.anna.wildlife_sighting_tracker.dao;
 
+import com.anna.wildlife_sighting_tracker.models.EndangeredAnimal;
 import com.anna.wildlife_sighting_tracker.models.ThrivingAnimal;
 import com.anna.wildlife_sighting_tracker.parameter_resolver.ThrivingAnimalParameterResolver;
 import org.junit.jupiter.api.*;
@@ -47,6 +48,13 @@ class Sql2oThrivingAnimalDaoTest {
   @DisplayName("Test that empty list is returned if no records in the database")
   public void getAll_returnsEmptyListIfNoRecords_true() {
     assertEquals(0, animalDao.getAll().size());
+  }
+
+  @Test
+  @DisplayName("Test that a thriving animal can be retrieved from the database")
+  public void get_returnsEndangeredAnimalWithSameId_true(ThrivingAnimal thrivingAnimal) {
+    animalDao.add(thrivingAnimal);
+    assertEquals(thrivingAnimal, animalDao.get(thrivingAnimal.getId()));
   }
 
 
