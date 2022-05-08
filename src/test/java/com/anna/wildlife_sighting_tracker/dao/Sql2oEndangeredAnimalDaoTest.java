@@ -44,7 +44,7 @@ class Sql2oEndangeredAnimalDaoTest {
 
   @Test
   @DisplayName("Test that all added endangered animals can be retrieved from the database")
-  public void getAll_returnsEmptyListIfNoRecords_true(EndangeredAnimal endangeredAnimal) {
+  public void getAll_returnsEmptyListIfNoRecords_true() {
     assertEquals(0, animalDao.getAll().size());
   }
 
@@ -53,6 +53,31 @@ class Sql2oEndangeredAnimalDaoTest {
   public void get_returnsEndangeredAnimalWithSameId_true(EndangeredAnimal endangeredAnimal) {
     animalDao.add(endangeredAnimal);
     assertEquals(endangeredAnimal, animalDao.get(endangeredAnimal.getId()));
+  }
+
+  @Test
+  @DisplayName("Test that an endangered animal's data can be updated")
+  public void update_updatesDataOfEndangeredAnimal_true(EndangeredAnimal endangeredAnimal) {
+    endangeredAnimal.setImage("https://wildlife_tracker/rhino.jpg");
+    endangeredAnimal.setName("Cecil");
+    endangeredAnimal.setSpeciesId(2);
+    endangeredAnimal.setHealth(EndangeredAnimal.ILL);
+    endangeredAnimal.setAge(EndangeredAnimal.NEWBORN);
+    animalDao.add(endangeredAnimal);
+    EndangeredAnimal foundAnimal = animalDao.get(endangeredAnimal.getId());
+    assertEquals("https://wildlife_tracker/rhino.jpg", foundAnimal.getImage());
+    assertEquals("Cecil", foundAnimal.getName());
+    assertEquals(2, foundAnimal.getSpeciesId());
+    assertEquals(EndangeredAnimal.ILL, foundAnimal.getHealth());
+    assertEquals(EndangeredAnimal.NEWBORN, foundAnimal.getAge());
+  }
+
+  @Test
+  @DisplayName("Test that an endangered animal's data can be deleted")
+  public void delete_deletesAnEndangeredAnimal_true(EndangeredAnimal endangeredAnimal) {
+    animalDao.add(endangeredAnimal);
+    animalDao.delete(endangeredAnimal.getId());
+    assertFalse(animalDao.getAll().contains(endangeredAnimal));
   }
 
   @AfterEach
