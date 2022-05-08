@@ -33,6 +33,22 @@ public abstract class Animal {
     this.id = id;
   }
 
+  public void setImage(String image) {
+    this.image = image;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setSpeciesId(int speciesId) {
+    this.speciesId = speciesId;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
