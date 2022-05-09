@@ -80,6 +80,15 @@ public class Sql2oEndangeredAnimalDao implements MutableDatabaseDao<EndangeredAn
     } catch (Sql2oException exception){
       exception.printStackTrace();
     }
+
+    String anotherDeleteQuery = "DELETE FROM animals_sightings WHERE animalid = :animalId";
+    try(Connection connection = sql2o.open()) {
+      connection.createQuery(anotherDeleteQuery)
+              .addParameter("animalId", id)
+              .executeUpdate();
+    } catch (Sql2oException exception){
+      exception.printStackTrace();
+    }
   }
 
   @Override
