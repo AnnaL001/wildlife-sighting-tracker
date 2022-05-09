@@ -1,0 +1,39 @@
+{{#partial "content"}}
+  <section id="thriving-form">
+    <div class="container">
+      <div class="col-12 col-lg-6 mx-auto">
+        <div class="card my-5 bg-light">
+          <div class="card-body">
+            <h1 class="text-center fs-regular">
+              Add sighted animals
+            </h1>
+            <hr>
+              <form action="/sightings/{{sighting.id}}/animals" method="post">
+                <div class="form-floating my-4">
+                  <select class="form-select" id="animal" name="animal" aria-label="Select animal">
+                    {{#each animals}}
+                      <option value="{{id}}">{{name}} | Category: {{category}}</option>
+                    {{/each}}
+                  </select>
+                  <label for="location">Select animal</label>
+                </div>
+                <div class="d-flex justify-content-center mt-5 mb-3">
+                  <button type="submit" class="btn btn-success py-2">
+                    <i class="fa-solid fa-hippo"></i>
+                    <span class="px-2">Add sighted animal</span>
+                  </button>
+                  <a href="/sightings/{{sighting.id}}" class="mx-3">
+                    <button type="button" class="btn btn-success py-2">
+                      <i class="fa-solid fa-circle-left"></i>
+                      <span class="px-2">Back</span>
+                    </button>
+                  </a>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{{/partial}}
+{{>layout2.hbs}}
