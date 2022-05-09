@@ -36,6 +36,16 @@ p.para {
   height: auto;
 }
 
+.img-fixed-size {
+    max-height: 8rem;
+    max-width: 8rem;
+}
+
+.img-profile-size {
+    max-height: 20rem;
+    max-width: 20rem;
+}
+
 /*===========================
 SECTION: INTRO
 =============================*/
