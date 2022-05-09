@@ -170,5 +170,20 @@ public class App {
       response.redirect("/animals/" + request.params("id"));
       return null;
     });
+
+    // DELETE ANIMALS
+    get("/animals/endangered-animals/:id/delete", (request, response) -> {
+      EndangeredAnimal endangeredAnimal = endangeredAnimalDao.get(parseInt(request.params("id")));
+      endangeredAnimalDao.delete(endangeredAnimal.getId());
+      response.redirect("/animals");
+      return null;
+    });
+
+    get("/animals/thriving-animals/:id/delete", (request, response) -> {
+      ThrivingAnimal thrivingAnimal = thrivingAnimalDao.get(parseInt(request.params("id")));
+      thrivingAnimalDao.delete(thrivingAnimal.getId());
+      response.redirect("/animals");
+      return null;
+    });
   }
 }
