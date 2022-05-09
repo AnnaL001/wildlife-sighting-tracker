@@ -115,5 +115,60 @@ public class App {
               new ModelAndView(model, "animal.hbs")
       );
     });
+
+    // UPDATE ANIMALS
+    get("/animals/endangered-animals/:id/update", (request, response) -> {
+      int id = parseInt(request.params("id"));
+      model.put("animal", endangeredAnimalDao.get(id));
+      model.put("species", speciesDao.getAll());
+      model.put("healthy", EndangeredAnimal.HEALTHY);
+      model.put("ill", EndangeredAnimal.ILL);
+      model.put("okay", EndangeredAnimal.OKAY);
+      model.put("newborn", EndangeredAnimal.NEWBORN);
+      model.put("young", EndangeredAnimal.YOUNG);
+      model.put("adult", EndangeredAnimal.ADULT);
+      model.put("edit", true);
+      return new HandlebarsTemplateEngine().render(
+              new ModelAndView(model, "endangered-animal-form.hbs")
+      );
+    });
+
+    post("/animals/endangered-animals/:id/update", (request, response) -> {
+      EndangeredAnimal endangeredAnimal = endangeredAnimalDao.get(parseInt(request.params("id")));
+      endangeredAnimal.setImage(request.queryParams("image"));
+      endangeredAnimal.setName(request.queryParams("name"));
+      endangeredAnimal.setSpeciesId(parseInt(request.queryParams("species")));
+      endangeredAnimal.setHealth(request.queryParams("health"));
+      endangeredAnimal.setAge(request.queryParams("age"));
+      endangeredAnimalDao.update(endangeredAnimal);
+      response.redirect("/animals/" + request.params("id"));
+      return null;
+    });
+
+    get("/animals/thriving-animals/:id/update", (request, response) -> {
+      int id = parseInt(request.params("id"));
+      model.put("animal", thrivingAnimalDao.get(id));
+      model.put("species", speciesDao.getAll());
+      model.put("healthy", EndangeredAnimal.HEALTHY);
+      model.put("ill", EndangeredAnimal.ILL);
+      model.put("okay", EndangeredAnimal.OKAY);
+      model.put("newborn", EndangeredAnimal.NEWBORN);
+      model.put("young", EndangeredAnimal.YOUNG);
+      model.put("adult", EndangeredAnimal.ADULT);
+      model.put("edit", true);
+      return new HandlebarsTemplateEngine().render(
+              new ModelAndView(model, "thriving-animal-form.hbs")
+      );
+    });
+
+    post("/animals/thriving-animals/:id/update", (request, response) -> {
+      ThrivingAnimal thrivingAnimal = thrivingAnimalDao.get(parseInt(request.params("id")));
+      thrivingAnimal.setImage(request.queryParams("image"));
+      thrivingAnimal.setName(request.queryParams("name"));
+      thrivingAnimal.setSpeciesId(parseInt(request.queryParams("species")));
+      thrivingAnimalDao.update(thrivingAnimal);
+      response.redirect("/animals/" + request.params("id"));
+      return null;
+    });
   }
 }
