@@ -8,23 +8,24 @@
               <div class="col-12 col-lg-4 px-2">
                 <img class="img-profile-size img-thumbnail" src="{{thriving.image}}" alt="">
               </div>
-              <div class="col-12 col-lg-7">
+              <div class="col-12 col-lg-8">
+                <span class="badge bg-success py-1 my-2 my-lg-0 float-none float-lg-end">{{thriving.category}}</span>
                 <p class="fw-light"><span class="fw-medium">Name:</span> {{thriving.name}}</p>
                 <p class="fw-light">
                   <span class="fw-medium">Species:</span> {{species.name}}
                 </p>
-                <p class="fw-light">
-                  <span class="fw-medium">Category:</span>
-                  <span class="badge bg-success py-2">{{thriving.category}}</span>
-                </p>
-                <div class="d-flex">
+                <div class="d-flex justify-content-center justify-content-lg-start">
                   <a href="" class="text-success">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    Update
+                    <button class="btn btn-success">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                      <span class="px-1">Update</span>
+                    </button>
                   </a>
                   <a href="" class="mx-3 text-success">
-                    <i class="fa-solid fa-trash-can"></i>
-                    Delete
+                    <button class="btn btn-success">
+                      <i class="fa-solid fa-trash-can"></i>
+                      <span class="px-1">Delete</span>
+                    </button>
                   </a>
                 </div>
               </div>
@@ -34,29 +35,30 @@
       {{else if endangered}}
         <div class="card bg-light my-5">
           <div class="card-body">
-            <div class="row gx-2">
+            <div class="row gx-1">
               <div class="col-12 col-lg-4 px-2">
                 <img class="img-profile-size img-thumbnail" src="{{endangered.image}}" alt="">
               </div>
-              <div class="col-12 col-lg-7">
+              <div class="col-12 col-lg-8">
+                <span class="badge bg-danger py-1 my-2 my-lg-0 float-none float-lg-end">{{endangered.category}}</span>
                 <p class="fw-light"><span class="fw-medium">Name:</span> {{endangered.name}}</p>
                 <p class="fw-light"><span class="fw-medium">Species:</span>
                   {{species.name}}
                 </p>
                 <p class="fw-light"><span class="fw-medium">Health status:</span> {{endangered.health}}</p>
                 <p class="fw-light"><span class="fw-medium">Age:</span> {{endangered.age}}</p>
-                <p class="fw-light">
-                  <span class="fw-medium">Category:</span>
-                  <span class="badge bg-danger py-2">{{endangered.category}}</span>
-                </p>
-                <div class="d-flex">
+                <div class="d-flex justify-content-center justify-content-lg-start">
                   <a href="" class="text-success">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    Update
+                    <button class="btn btn-success">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                      <span class="px-1">Update</span>
+                    </button>
                   </a>
                   <a href="" class="mx-3 text-success">
-                    <i class="fa-solid fa-trash-can"></i>
-                    Delete
+                    <button class="btn btn-success">
+                      <i class="fa-solid fa-trash-can"></i>
+                      <span class="px-1">Delete</span>
+                    </button>
                   </a>
                 </div>
               </div>
