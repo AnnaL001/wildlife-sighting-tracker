@@ -76,6 +76,15 @@ public class Sql2oThrivingAnimalDao implements MutableDatabaseDao<ThrivingAnimal
     } catch (Sql2oException exception){
       exception.printStackTrace();
     }
+
+    String anotherDeleteQuery = "DELETE FROM animals_sightings WHERE animalid = :animalId";
+    try(Connection connection = sql2o.open()) {
+      connection.createQuery(anotherDeleteQuery)
+              .addParameter("animalId", id)
+              .executeUpdate();
+    } catch (Sql2oException exception){
+      exception.printStackTrace();
+    }
   }
 
   @Override
