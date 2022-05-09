@@ -1,13 +1,19 @@
 package com.anna.wildlife_sighting_tracker;
 
+import com.anna.wildlife_sighting_tracker.base.Animal;
 import com.anna.wildlife_sighting_tracker.dao.*;
 import com.anna.wildlife_sighting_tracker.models.EndangeredAnimal;
+import com.anna.wildlife_sighting_tracker.models.Sighting;
 import com.anna.wildlife_sighting_tracker.models.ThrivingAnimal;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
 import org.sql2o.Sql2o;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static java.lang.Integer.parseInt;
@@ -23,6 +29,7 @@ public class App {
     Sql2oSightingDao sightingDao = new Sql2oSightingDao(sql2o);
     Sql2oRangerDao rangerDao = new Sql2oRangerDao(sql2o);
     Sql2oSpeciesDao speciesDao = new Sql2oSpeciesDao(sql2o);
+    Sql2oLocationDao locationDao = new Sql2oLocationDao(sql2o);
 
     get("/", (request, response) -> new HandlebarsTemplateEngine().render(
             new ModelAndView(new HashMap<>(), "index.hbs")
@@ -183,6 +190,118 @@ public class App {
       ThrivingAnimal thrivingAnimal = thrivingAnimalDao.get(parseInt(request.params("id")));
       thrivingAnimalDao.delete(thrivingAnimal.getId());
       response.redirect("/animals");
+      return null;
+    });
+
+    // CREATE SIGHTING
+    get("/sightings/new", (request, response) -> {
+      model.put("locations", locationDao.getAll());
+      model.put("rangers", rangerDao.getAll());
+      model.put("edit", false);
+      return new HandlebarsTemplateEngine().render(
+              new ModelAndView(model, "sighting-form.hbs")
+      );
+    });
+
+    post("/sightings", (request, response) -> {
+      Sighting sighting = new Sighting(
+              parseInt(request.queryParams("location")),
+              parseInt(request.queryParams("ranger"))
+      );
+      sightingDao.add(sighting);
+      response.redirect("/sightings");
+      return null;
+    });
+
+    // READ SIGHTINGS
+    get("/sightings", (request, response) -> {
+      List<Sighting> sightings = sightingDao.getAll();
+
+      for(Sighting sighting: sightings){
+        DateTimeZone zone = DateTimeZone.forID("Africa/Nairobi");
+        LocalDateTime localDateTime = new LocalDateTime(sighting.getReportedAt(), zone);
+        sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd HH:mm:ss"));
+      }
+
+      model.put("sightings", sightings);
+      return new HandlebarsTemplateEngine().render(
+              new ModelAndView(model, "sightings.hbs")
+      );
+    });
+
+    get("/sightings/:id", (request, response) -> {
+      Sighting sighting = sightingDao.get(parseInt(request.params("id")));
+      model.put("sighting", sighting);
+      model.put("ranger", rangerDao.get(sighting.getRangerId()));
+      model.put("location", locationDao.get(sighting.getLocationId()));
+      model.put("animals", sightingDao.getAnimals(sighting.getId()));
+      return new HandlebarsTemplateEngine().render(
+              new ModelAndView(model, "sighting.hbs")
+      );
+    });
+
+    get("/sightings/:id/update", (request, response) -> {
+      model.put("sighting", sightingDao.get(parseInt(request.params("id"))));
+      model.put("locations", locationDao.getAll());
+      model.put("rangers", rangerDao.getAll());
+      model.put("edit", true);
+      return new HandlebarsTemplateEngine().render(
+              new ModelAndView(model, "sighting-form.hbs")
+      );
+    });
+
+    post("/sightings/:id/update", (request, response) -> {
+      Sighting sighting = sightingDao.get(parseInt(request.params("id")));
+      sighting.setLocationId(parseInt(request.queryParams("location")));
+      sighting.setRangerId(parseInt(request.queryParams("ranger")));
+      sightingDao.update(sighting);
+      response.redirect("/sightings/" + request.params("id"));
+      return null;
+    });
+
+    // DELETE SIGHTING
+    get("/sightings/:id/delete", (request, response) -> {
+      Sighting sighting = sightingDao.get(parseInt(request.params("id")));
+      sightingDao.delete(sighting.getId());
+      response.redirect("/sightings");
+      return null;
+    });
+
+
+    // ADD SIGHTED ANIMAL
+    get("/sightings/:id/animals/new", (request, response) -> {
+      Sighting sighting = sightingDao.get(parseInt(request.params("id")));
+      List<Animal> animals = new ArrayList<>();
+      animals.addAll(endangeredAnimalDao.getAll());
+      animals.addAll(thrivingAnimalDao.getAll());
+
+      // Edit each animal's display name to include animal species
+      for(Animal animal: animals){
+        String animalName = animal.getName();
+        String speciesName = speciesDao.get(animal.getSpeciesId()).getName();
+        animal.setName(animalName + " | Species: " + speciesName);
+      }
+
+      model.put("animals", animals);
+      model.put("sighting", sighting);
+      return new HandlebarsTemplateEngine().render(
+              new ModelAndView(model, "sighted-animal-form.hbs")
+      );
+    });
+
+    post("/sightings/:id/animals", (request, response) -> {
+      Sighting sighting = sightingDao.get(parseInt(request.params("id")));
+      int animalId = parseInt(request.queryParams("animal"));
+      sightingDao.addAnimalToSighting(sighting.getId(), animalId);
+      response.redirect("/sightings/" + request.params("id"));
+      return null;
+    });
+
+    // REMOVE SIGHTED ANIMAL
+    get("/sightings/:sighting_id/animals/:animal_id", (request, response) -> {
+      Sighting sighting = sightingDao.get(parseInt(request.params("sighting_id")));
+      sightingDao.removeAnimalFromSighting(sighting.getId(), parseInt(request.params("animal_id")));
+      response.redirect("/sightings/" + request.params("sighting_id"));
       return null;
     });
   }
