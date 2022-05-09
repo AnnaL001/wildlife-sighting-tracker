@@ -1,0 +1,68 @@
+{{#partial "content"}}
+  <section id="endangered-form">
+    <div class="container">
+      <div class="col-12 col-lg-6 mx-auto">
+        <div class="card my-5 bg-light">
+          <div class="card-body">
+            {{#if edit}}
+            {{else}}
+              <h1 class="text-center fs-regular">
+                Add endangered animal
+              </h1>
+              <hr>
+              <form action="/animals/endangered-animals" method="post">
+                <div class="form-floating my-4">
+                  <input type="url" name="image" id="image" class="form-control" pattern="https://.*"
+                         placeholder="Image url" required>
+                  <label for="image">Image url</label>
+                </div>
+                <div class="form-floating my-4">
+                  <input type="text" name="name" id="name" class="form-control" placeholder="Name" required
+                         minlength="4">
+                  <label for="name">Name</label>
+                </div>
+                <div class="form-floating my-4">
+                  <select class="form-select" id="species" name="species" aria-label="Select animal species">
+                    {{#each species}}
+                      <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                  </select>
+                  <label for="species">Select animal species</label>
+                </div>
+                <div class="form-floating my-4">
+                  <select class="form-select" id="health" name="health" aria-label="Select health status">
+                    <option>{{healthy}}</option>
+                    <option>{{okay}}</option>
+                    <option>{{ill}}</option>
+                  </select>
+                  <label for="health">Select health status</label>
+                </div>
+                <div class="form-floating my-4">
+                  <select class="form-select" id="age" name="age" aria-label="Select animal age">
+                    <option>{{newborn}}</option>
+                    <option>{{young}}</option>
+                    <option>{{adult}}</option>
+                  </select>
+                  <label for="species">Select animal age</label>
+                </div>
+                <div class="d-flex justify-content-center mt-5 mb-3">
+                  <button type="submit" class="btn btn-success py-2">
+                    <i class="fa-solid fa-hippo"></i>
+                    <span class="px-2">Add animal</span>
+                  </button>
+                  <a href="/animals" class="mx-3">
+                    <button type="button" class="btn btn-success py-2">
+                      <i class="fa-solid fa-arrow-left"></i>
+                      <span class="px-2">Back</span>
+                    </button>
+                  </a>
+                </div>
+              </form>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{{/partial}}
+{{>layout2.hbs}}
