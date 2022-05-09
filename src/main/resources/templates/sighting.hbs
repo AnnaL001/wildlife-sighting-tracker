@@ -1,0 +1,94 @@
+{{#partial "content"}}
+  <section id="sighting">
+    <div class="container">
+      <div class="card bg-light my-5">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <p class="fw-light">
+                <i class="fa-solid fa-location-dot"></i>
+                <span class="fw-medium">Location:</span> {{location.name}}, {{location.description}}
+              </p>
+              <p class="fw-light">
+                <i class="fa-solid fa-user-ninja"></i>
+                <span class="fw-medium">Ranger:</span> {{ranger.name}} | Badge: {{ranger.badge}} | Phone: {{ranger.phone}} | Email: {{ranger.email}}
+              </p>
+              <div class="d-flex justify-content-center justify-content-lg-start">
+                <a href="/sightings/{{sighting.id}}/animals/new">
+                  <button class="btn btn-success">
+                    <i class="fa-solid fa-hippo"></i>
+                    <span class="px-1">Add sighted animal</span>
+                  </button>
+                </a>
+                <a href="/sightings/{{sighting.id}}/update" class="mx-2">
+                  <button class="btn btn-success">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <span class="px-1">Update</span>
+                  </button>
+                </a>
+                <a href="/sightings/{{sighting.id}}/delete" class="mx-2">
+                  <button class="btn btn-success">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span class="px-1">Delete</span>
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="animals-sighted">
+    <div class="container">
+      <h2 class="mt-5">Animals sighted</h2>
+      <table class="table table-responsive table-striped table-hover my-5">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Category</th>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Action</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each animals}}
+          <tr>
+            <th scope="row">{{id}}</th>
+            <td>
+              <span class="badge bg-secondary py-1">{{category}}</span>
+            </td>
+            <td>
+              <img class="img-fixed-size img-thumbnail"
+                   src="{{image}}"
+                   alt="An animal's image">
+            </td>
+            <td>
+              {{name}}
+            </td>
+            <td>
+              <a href="/animals/{{id}}">
+                <button class="btn btn-success">
+                  <i class="fa-solid fa-eye"></i>
+                  View
+                </button>
+              </a>
+            </td>
+            <td>
+              <a href="/sightings/{{sighting.id}}/animals/{{id}}">
+                <button class="btn btn-success">
+                  <i class="fa-solid fa-circle-xmark"></i>
+                  Remove
+                </button>
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{{/partial}}
+{{>layout2.hbs}}
