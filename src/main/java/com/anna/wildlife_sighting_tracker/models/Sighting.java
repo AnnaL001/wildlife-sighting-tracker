@@ -1,6 +1,10 @@
 package com.anna.wildlife_sighting_tracker.models;
 
+import org.joda.time.LocalDateTime;
+
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Sighting {
@@ -9,10 +13,12 @@ public class Sighting {
   private int rangerId;
   private Timestamp reportedAt;
 
-  public Sighting(int locationId, int rangerId, Timestamp reportedAt) {
+  private String formattedReportedDate;
+
+
+  public Sighting(int locationId, int rangerId) {
     this.locationId = locationId;
     this.rangerId = rangerId;
-    this.reportedAt = reportedAt;
   }
 
   public int getId() {
@@ -29,6 +35,14 @@ public class Sighting {
 
   public Timestamp getReportedAt() {
     return reportedAt;
+  }
+
+  public String getFormattedReportedDate() {
+    return formattedReportedDate;
+  }
+
+  public void setFormattedReportedDate(String formattedReportedDate) {
+    this.formattedReportedDate = formattedReportedDate;
   }
 
   public void setId(int id) {
@@ -52,11 +66,11 @@ public class Sighting {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Sighting sighting = (Sighting) o;
-    return locationId == sighting.locationId && rangerId == sighting.rangerId && Objects.equals(reportedAt, sighting.reportedAt);
+    return locationId == sighting.locationId && rangerId == sighting.rangerId;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(locationId, rangerId, reportedAt);
+    return Objects.hash(locationId, rangerId);
   }
 }
