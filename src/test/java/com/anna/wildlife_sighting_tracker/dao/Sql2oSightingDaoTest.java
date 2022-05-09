@@ -105,12 +105,12 @@ class Sql2oSightingDaoTest {
   public void addSightingToAnimal_addsAnimalSighted(Sighting sighting, EndangeredAnimal endangeredAnimal) {
     animalDao.add(endangeredAnimal);
     sightingDao.add(sighting);
-    sightingDao.addAnimalToSighting(sighting, endangeredAnimal);
+    sightingDao.addAnimalToSighting(sighting.getId(), endangeredAnimal.getId());
     assertTrue(sightingDao.getAnimals(sighting.getId()).contains(endangeredAnimal));
   }
 
   private Sighting setUpSighting(){
-    return new Sighting(2,1, new Timestamp(new Date().getTime()));
+    return new Sighting(2,1);
   }
 
   @AfterEach
