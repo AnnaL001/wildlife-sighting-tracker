@@ -1,0 +1,61 @@
+{{#partial "content"}}
+  <section id="home">
+    <div class="container">
+      <div class="row my-5">
+        <div class="col-12 col-md-3">
+          <div class="card bg-success text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <i class="fa-solid fa-hippo fs-regular"></i>
+                <div>
+                  <p>{{animals_count}}</p>
+                  <p>Animals</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="card bg-success text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <i class="fa-solid fa-eye fs-regular"></i>
+                <div>
+                  <p>{{sightings_count}}</p>
+                  <p>Sightings</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="card bg-success text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <i class="fa-solid fa-user-ninja fs-regular"></i>
+                <div>
+                  <p>{{rangers_count}}</p>
+                  <p>Rangers</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="card bg-success text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <i class="fa-solid fa-dove fs-regular"></i>
+                <div>
+                  <p>{{species_count}}</p>
+                  <p>Species</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{{/partial}}
+{{>layout2.hbs}}
