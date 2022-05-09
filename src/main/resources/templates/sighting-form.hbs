@@ -1,0 +1,84 @@
+{{#partial "content"}}
+  <section id="sighting-form">
+    <div class="container">
+      <div class="col-12 col-lg-6 mx-auto">
+        <div class="card my-5 bg-light">
+          <div class="card-body">
+            {{#if edit}}
+              <h1 class="text-center fs-regular">
+                Update sighting
+              </h1>
+              <hr>
+              <form action="/sightings/{{sighting.id}}/update" method="post">
+                <div class="form-floating my-4">
+                  <select class="form-select" id="location" name="location" aria-label="Select location">
+                    {{#each locations}}
+                      <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                  </select>
+                  <label for="location">Select location</label>
+                </div>
+                <div class="form-floating my-4">
+                  <select class="form-select" id="ranger" name="ranger" aria-label="Reported by">
+                    {{#each rangers}}
+                      <option value="{{id}}">{{name}} | {{badge}}</option>
+                    {{/each}}
+                  </select>
+                  <label for="ranger">Reported by</label>
+                </div>
+                <div class="d-flex justify-content-center mt-5 mb-3">
+                  <button type="submit" class="btn btn-success py-2">
+                    <i class="fa-solid fa-eye"></i>
+                    <span class="px-2">Update sighting</span>
+                  </button>
+                  <a href="/sightings/{{sighting.id}}" class="mx-3">
+                    <button type="button" class="btn btn-success py-2">
+                      <i class="fa-solid fa-circle-left"></i>
+                      <span class="px-2">Back</span>
+                    </button>
+                  </a>
+                </div>
+              </form>
+            {{else}}
+              <h1 class="text-center fs-regular">
+                Add sighting
+              </h1>
+              <hr>
+              <form action="/sightings" method="post">
+                <div class="form-floating my-4">
+                  <select class="form-select" id="location" name="location" aria-label="Select location">
+                    {{#each locations}}
+                      <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                  </select>
+                  <label for="location">Select location</label>
+                </div>
+                <div class="form-floating my-4">
+                  <select class="form-select" id="ranger" name="ranger" aria-label="Reported by">
+                    {{#each rangers}}
+                      <option value="{{id}}">{{name}} | {{badge}}</option>
+                    {{/each}}
+                  </select>
+                  <label for="ranger">Reported by</label>
+                </div>
+                <div class="d-flex justify-content-center mt-5 mb-3">
+                  <button type="submit" class="btn btn-success py-2">
+                    <i class="fa-solid fa-eye"></i>
+                    <span class="px-2">Add sighting</span>
+                  </button>
+                  <a href="/animals" class="mx-3">
+                    <button type="button" class="btn btn-success py-2">
+                      <i class="fa-solid fa-circle-left"></i>
+                      <span class="px-2">Back</span>
+                    </button>
+                  </a>
+                </div>
+              </form>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{{/partial}}
+{{>layout2.hbs}}
