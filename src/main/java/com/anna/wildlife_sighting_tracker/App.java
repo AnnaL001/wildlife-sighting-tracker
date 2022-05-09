@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.lang.Integer.parseInt;
-import static spark.Spark.get;
-import static spark.Spark.staticFileLocation;
+import static spark.Spark.*;
+
 public class App {
   public static void main(String[] args) {
     staticFileLocation("public/");
@@ -38,6 +38,60 @@ public class App {
       );
     });
 
+    // CREATE ANIMALS
+    get("animals/endangered-animals/new", (request, response) -> {
+      model.put("species", speciesDao.getAll());
+      model.put("healthy", EndangeredAnimal.HEALTHY);
+      model.put("ill", EndangeredAnimal.ILL);
+      model.put("okay", EndangeredAnimal.OKAY);
+      model.put("newborn", EndangeredAnimal.NEWBORN);
+      model.put("young", EndangeredAnimal.YOUNG);
+      model.put("adult", EndangeredAnimal.ADULT);
+      model.put("edit", false);
+      return new HandlebarsTemplateEngine().render(
+              new ModelAndView(model, "endangered-animal-form.hbs")
+      );
+    });
+
+    post("/animals/endangered-animals", (request, response) -> {
+      EndangeredAnimal endangeredAnimal = new EndangeredAnimal(
+           request.queryParams("image"),
+           request.queryParams("name"),
+           parseInt(request.queryParams("species")),
+           request.queryParams("health"),
+           request.queryParams("age")
+      );
+      endangeredAnimalDao.add(endangeredAnimal);
+      response.redirect("/animals");
+      return null;
+    });
+
+    get("animals/thriving-animals/new", (request, response) -> {
+      model.put("species", speciesDao.getAll());
+      model.put("healthy", EndangeredAnimal.HEALTHY);
+      model.put("ill", EndangeredAnimal.ILL);
+      model.put("okay", EndangeredAnimal.OKAY);
+      model.put("newborn", EndangeredAnimal.NEWBORN);
+      model.put("young", EndangeredAnimal.YOUNG);
+      model.put("adult", EndangeredAnimal.ADULT);
+      model.put("edit", false);
+      return new HandlebarsTemplateEngine().render(
+              new ModelAndView(model, "thriving-animal-form.hbs")
+      );
+    });
+
+    post("/animals/thriving-animals", (request, response) -> {
+     ThrivingAnimal thrivingAnimal = new ThrivingAnimal(
+              request.queryParams("image"),
+              request.queryParams("name"),
+              parseInt(request.queryParams("species"))
+      );
+      thrivingAnimalDao.add(thrivingAnimal);
+      response.redirect("/animals");
+      return null;
+    });
+
+    // READ ANIMALS
     get("/animals", (request, response) -> {
       model.put("endangered", endangeredAnimalDao.getAll());
       model.put("thriving", thrivingAnimalDao.getAll());
