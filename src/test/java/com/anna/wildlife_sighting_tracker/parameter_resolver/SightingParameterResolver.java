@@ -18,6 +18,6 @@ public class SightingParameterResolver implements ParameterResolver {
 
   @Override
   public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-    return new Sighting(1,1, new Timestamp(new Date().getTime()));
+    return new Sighting(1,1);
   }
 }
