@@ -26,10 +26,4 @@ class SightingTest {
   public void newSighting_instantiatesWithRangerId(Sighting sighting) {
     assertEquals(1, sighting.getRangerId());
   }
-
-  @Test
-  @DisplayName("Test to check that a Sighting class instance instantiates with reported time")
-  public void newSighting_instantiatesWithReportedAt(Sighting sighting) {
-    assertNotNull(sighting.getReportedAt());
-  }
 }
