@@ -2,9 +2,7 @@ package com.anna.wildlife_sighting_tracker.dao;
 
 import com.anna.wildlife_sighting_tracker.base.Animal;
 import com.anna.wildlife_sighting_tracker.interfaces.MutableDatabaseDao;
-import com.anna.wildlife_sighting_tracker.models.EndangeredAnimal;
-import com.anna.wildlife_sighting_tracker.models.Sighting;
-import com.anna.wildlife_sighting_tracker.models.ThrivingAnimal;
+import com.anna.wildlife_sighting_tracker.models.*;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
@@ -21,12 +19,11 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
 
   @Override
   public void add(Sighting data) {
-    String insertQuery = "INSERT INTO sightings (locationid, rangerid, reportedat) VALUES (:locationId, :rangerId, :reportedAt)";
+    String insertQuery = "INSERT INTO sightings (locationid, rangerid, reportedat) VALUES (:locationId, :rangerId, now())";
     try(Connection connection = sql2o.open()){
       int id = (int) connection.createQuery(insertQuery, true)
               .addParameter("locationId", data.getLocationId())
               .addParameter("rangerId", data.getRangerId())
-              .addParameter("reportedAt", data.getReportedAt())
               .executeUpdate()
               .getKey();
       data.setId(id);
@@ -38,7 +35,7 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
   @Override
   public List<Sighting> getAll() {
     try(Connection connection = sql2o.open()){
-      return connection.createQuery("SELECT * FROM sightings")
+      return connection.createQuery("SELECT * FROM sightings ORDER BY reportedat DESC")
               .executeAndFetch(Sighting.class);
     } catch (Sql2oException exception){
       exception.printStackTrace();
@@ -73,12 +70,22 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
-  public void addAnimalToSighting(Sighting sighting, Animal animal){
+  public void addAnimalToSighting(int sightingId, int animalId){
     try(Connection connection = sql2o.open()) {
       String insertQuery = "INSERT INTO animals_sightings (animalid, sightingId) VALUES (:animalId, :sightingId)";
       connection.createQuery(insertQuery)
-              .addParameter("animalId", animal.getId())
-              .addParameter("sightingId", sighting.getId())
+              .addParameter("animalId", animalId)
+              .addParameter("sightingId", sightingId)
+              .executeUpdate();
+    }
+  }
+
+  public void removeAnimalFromSighting(int sightingId, int animalId){
+    try(Connection connection = sql2o.open()){
+      String deleteQuery = "DELETE FROM animals_sightings WHERE animalid=:animalId AND sightingid = :sightingId";
+      connection.createQuery(deleteQuery)
+              .addParameter("animalId", animalId)
+              .addParameter("sightingId", sightingId)
               .executeUpdate();
     }
   }
@@ -114,6 +121,15 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     try (Connection connection = sql2o.open()) {
       connection.createQuery(deleteQuery)
               .addParameter("id", id)
+              .executeUpdate();
+    } catch (Sql2oException exception){
+      exception.printStackTrace();
+    }
+
+    String anotherDeleteQuery = "DELETE FROM animals_sightings WHERE sightingid = :sightingId";
+    try(Connection connection = sql2o.open()) {
+      connection.createQuery(anotherDeleteQuery)
+              .addParameter("sightingId", id)
               .executeUpdate();
     } catch (Sql2oException exception){
       exception.printStackTrace();
