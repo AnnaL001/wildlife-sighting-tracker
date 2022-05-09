@@ -5,6 +5,10 @@
         <div class="card my-5 bg-light">
           <div class="card-body">
             {{#if edit}}
+              <h1 class="text-center fs-regular">
+                Update thriving animal
+              </h1>
+              <hr>
               <form action="/animals/thriving-animals/{{animal.id}}/update" method="post">
                 <div class="form-floating my-4">
                   <input type="url" name="image" id="image" class="form-control" pattern="https://.*" value="{{animal.image}}"
