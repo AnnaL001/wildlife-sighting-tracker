@@ -1,0 +1,96 @@
+{{#partial "content"}}
+  <section id="actions">
+    <div class="container">
+      <div class="d-flex mt-5 mb-3">
+        <a href="">
+          <button class="btn btn-success">
+            <i class="fa-solid fa-circle-plus"></i>
+            Add endangered animal
+          </button>
+        </a>
+        <a href="/form.html">
+          <button class="btn btn-success mx-4">
+            <i class="fa-solid fa-circle-plus"></i>
+            Add thriving animal
+          </button>
+        </a>
+      </div>
+    </div>
+  </section>
+  <section id="animals">
+    <div class="container">
+      <h2 class="mt-5">Endangered</h2>
+      <table class="table table-responsive table-striped table-hover my-5">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Category</th>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+          {{#each endangered}}
+            <tr>
+              <th scope="row">{{id}}</th>
+              <td>
+                <span class="badge bg-danger py-2">{{category}}</span>
+              </td>
+              <td>
+                <img class="img-fixed-size img-thumbnail"
+                     src="{{image}}"
+                     alt="An animal's image">
+              </td>
+              <td>
+                {{name}}
+              </td>
+              <td>
+                <a href="/animals/{{id}}">
+                  <button class="btn btn-success">View</button>
+                </a>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <h2 class="mt-5">Thriving</h2>
+      <table class="table table-responsive table-striped table-hover my-5">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Category</th>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each thriving}}
+          <tr>
+            <th scope="row">{{id}}</th>
+            <td>
+              <span class="badge bg-success py-2">{{category}}</span>
+            </td>
+            <td>
+              <img class="img-fixed-size img-thumbnail"
+                   src="{{image}}"
+                   alt="An animal's image">
+            </td>
+            <td>
+              {{name}}
+            </td>
+            <td>
+              <a href="/animals/{{id}}">
+                <button class="btn btn-success">View</button>
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+
+    </div>
+  </section>
+{{/partial}}
+{{>layout2.hbs}}
