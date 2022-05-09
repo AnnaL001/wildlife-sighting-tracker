@@ -1,0 +1,88 @@
+body {
+  font-family: 'Oswald', sans-serif;
+}
+
+
+/*===========================
+UTILITIES
+=============================*/
+
+.fs-regular {
+  font-size: 2.5rem;
+}
+
+.fw-light {
+  font-weight: 300;
+}
+
+.fw-medium {
+  font-weight: 400;
+}
+
+p.para {
+  line-height: 1.6rem;
+  font-weight: 300;
+}
+
+.body-background {
+  background-image: url('/images/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+}
+
+/*===========================
+SECTION: INTRO
+=============================*/
+
+section#intro div.card {
+  background-color: rgba(0,0,0, 0.3);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  margin-top: 15rem;
+  margin-right: 1rem;
+}
+
+/*===========================
+SECTION: NAVBAR
+=============================*/
+
+nav ul {
+  margin-right: 6rem;
+}
+
+nav ul li {
+  padding: 0 1rem;
+}
+
+/*===========================
+MEDIA QUERIES
+=============================*/
+@media screen and (max-width: 576px) {
+  .fs-regular {
+    font-size: 2rem;
+  }
+
+  section#intro div.card {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 577px) and (max-width: 991px) {
+    section#intro div.card {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
