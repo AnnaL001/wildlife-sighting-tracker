@@ -27,6 +27,7 @@ The Java application allows users to track wildlife sightings in an area by reco
     CREATE DATABASE wildlife_tracker_test WITH TEMPLATE wildlife_tracker;
   ```
 - Otherwise to view the web application navigate to the link below <br>
+[Live Site](https://anna-wildlife-sighting-tracker.herokuapp.com/)
   
 ## Behavior Driven Development(BDD)
 | **Behavior**                              | **Input Example**                           | **Output**                                                         |
