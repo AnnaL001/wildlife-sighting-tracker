@@ -69,6 +69,9 @@ The Java application allows users to track wildlife sightings in an area by reco
 - CSS
 - Postgresql
 
+## Known bugs
+The form selects do not automotically set the selected value as the current value during updating data.
+
 ## Support and contact details
 
 In case of any queries you can reach out via email; lynn.nyangon@gmail.com
