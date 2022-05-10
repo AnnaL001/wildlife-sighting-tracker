@@ -1,0 +1,54 @@
+{{#partial "content"}}
+  <section id="rangers">
+    <div class="container">
+      <h1 class="fs-regular my-5">Sightings by ranger </h1>
+      {{#each rangers}}
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                {{name}} | Badge : {{badge}}
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <table class="table table-responsive table-striped table-hover my-3">
+                  <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Reported date</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {{#each sightings}}
+                    <tr>
+                      <th scope="row">{{@index_1}}</th>
+                      <td>
+                        <p class="fw-light">{{location.name}}</p>
+                      </td>
+                      <td>
+                        <p class="fw-light">{{formattedReportedDate}}</p>
+                      </td>
+                      <td>
+                        <a href="/sightings/{{id}}">
+                          <button class="btn btn-success">
+                            <i class="fa-solid fa-eye"></i>
+                            View
+                          </button>
+                        </a>
+                      </td>
+                    </tr>
+                  {{/each}}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </section>
+{{/partial}}
+{{>layout2.hbs}}
