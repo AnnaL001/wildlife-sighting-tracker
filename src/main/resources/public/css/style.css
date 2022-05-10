@@ -71,6 +71,14 @@ nav ul li {
 }
 
 /*===========================
+ACCORDION
+=============================*/
+.accordion-button:not(.collapsed) {
+    color: #198754;
+    background-color: #e7f1ff;
+}
+
+/*===========================
 MEDIA QUERIES
 =============================*/
 @media screen and (max-width: 576px) {
