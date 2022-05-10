@@ -90,6 +90,30 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
+  public List<Sighting> getSightingsByRangers(int rangerId){
+    String selectQuery = "SELECT * FROM sightings WHERE rangerid = :rangerId";
+    try(Connection connection = sql2o.open()){
+      return connection.createQuery(selectQuery)
+              .addParameter("rangerId", rangerId)
+              .executeAndFetch(Sighting.class);
+    } catch (Sql2oException exception){
+      exception.printStackTrace();
+      return null;
+    }
+  }
+
+  public List<Sighting> getSightingsByLocations(int locationId){
+    String selectQuery = "SELECT * FROM sightings WHERE locationid = :locationId";
+    try(Connection connection = sql2o.open()){
+      return connection.createQuery(selectQuery)
+              .addParameter("locationId", locationId)
+              .executeAndFetch(Sighting.class);
+    } catch (Sql2oException exception){
+      exception.printStackTrace();
+      return null;
+    }
+  }
+
   public List<Animal> getAnimals(int id){
     try(Connection connection = sql2o.open()){
       List<Animal> animals = new ArrayList<>();
