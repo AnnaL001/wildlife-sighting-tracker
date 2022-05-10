@@ -33,7 +33,7 @@
         <tbody>
           {{#each endangered}}
             <tr>
-              <th scope="row">{{id}}</th>
+              <th scope="row">{{@index_1}}</th>
               <td>
                 <span class="badge bg-secondary py-1">{{category}}</span>
               </td>
@@ -43,7 +43,7 @@
                      alt="An animal's image">
               </td>
               <td>
-                {{name}}
+                <p class="fw-light">{{name}}</p>
               </td>
               <td>
                 <a href="/animals/{{id}}">
@@ -85,7 +85,7 @@
                    alt="An animal's image">
             </td>
             <td>
-              {{name}}
+              <p class="fw-light">{{name}}</p>
             </td>
             <td>
               <a href="/animals/{{id}}">
