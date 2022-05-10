@@ -102,6 +102,7 @@ class Sql2oSightingDaoTest {
   }
 
   @Test
+  @DisplayName("Test that sighted animal is added to database successfully")
   public void addSightingToAnimal_addsAnimalSighted(Sighting sighting, EndangeredAnimal endangeredAnimal) {
     animalDao.add(endangeredAnimal);
     sightingDao.add(sighting);
@@ -109,8 +110,45 @@ class Sql2oSightingDaoTest {
     assertTrue(sightingDao.getAnimals(sighting.getId()).contains(endangeredAnimal));
   }
 
+  @Test
+  @DisplayName("Test that a list of animal's sighted can be updated successfully")
+  public void removeAnimalFromSighting_updatesAnimalsSighted_false(Sighting sighting, EndangeredAnimal endangeredAnimal) {
+    animalDao.add(endangeredAnimal);
+    sightingDao.add(sighting);
+    sightingDao.addAnimalToSighting(sighting.getId(), endangeredAnimal.getId());
+    sightingDao.removeAnimalFromSighting(sighting.getId(), endangeredAnimal.getId());
+    assertFalse(sightingDao.getAnimals(sighting.getId()).contains(endangeredAnimal));
+  }
+
+  @Test
+  @DisplayName("Test that a list of sightings based on location can be retrieved from database")
+  public void getSightingsByLocation_retrievesSightingsBasedOnLocation_false(Sighting sighting) {
+    sightingDao.add(sighting);
+    Sighting anotherSighting = setUpSighting();
+    sightingDao.add(anotherSighting);
+    assertFalse(sightingDao.getSightingsByLocations(sighting.getLocationId()).contains(anotherSighting));
+  }
+
+  @Test
+  @DisplayName("Test that a list of sightings based on rangers can be retrieved from the database")
+  public void getSightingsByRangers_retrievesSightingsBasedOnRangers_false(Sighting sighting) {
+    sightingDao.add(sighting);
+    Sighting anotherSighting = setUpSighting();
+    sightingDao.add(anotherSighting);
+    assertFalse(sightingDao.getSightingsByRangers(sighting.getRangerId()).contains(anotherSighting));
+  }
+
+  @Test
+  @DisplayName("Test that animals sighted can be retrieved")
+  public void getAnimals_retrievesAnimalsSighted_true(Sighting sighting, EndangeredAnimal endangeredAnimal) {
+    sightingDao.add(sighting);
+    animalDao.add(endangeredAnimal);
+    sightingDao.addAnimalToSighting(sighting.getId(), endangeredAnimal.getId());
+    assertTrue(sightingDao.getAnimals(sighting.getId()).contains(endangeredAnimal));
+  }
+
   private Sighting setUpSighting(){
-    return new Sighting(2,1);
+    return new Sighting(2,2);
   }
 
   @AfterEach
