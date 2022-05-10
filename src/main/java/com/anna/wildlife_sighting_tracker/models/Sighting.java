@@ -1,10 +1,6 @@
 package com.anna.wildlife_sighting_tracker.models;
 
-import org.joda.time.LocalDateTime;
-
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Sighting {
@@ -14,6 +10,9 @@ public class Sighting {
   private Timestamp reportedAt;
 
   private String formattedReportedDate;
+
+  private Location location;
+  private Ranger ranger;
 
 
   public Sighting(int locationId, int rangerId) {
@@ -27,6 +26,22 @@ public class Sighting {
 
   public int getLocationId() {
     return locationId;
+  }
+
+  public Location getLocation() {
+    return location;
+  }
+
+  public void setLocation(Location location) {
+    this.location = location;
+  }
+
+  public Ranger getRanger() {
+    return ranger;
+  }
+
+  public void setRanger(Ranger ranger) {
+    this.ranger = ranger;
   }
 
   public int getRangerId() {
