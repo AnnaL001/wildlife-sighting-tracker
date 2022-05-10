@@ -31,8 +31,8 @@ The Java application allows users to track wildlife sightings in an area by reco
 ## Behavior Driven Development(BDD)
 | **Behavior**                              | **Input Example**                           | **Output**                                                         |
 |-------------------------------------------|:--------------------------------------------|:-------------------------------------------------------------------|
-| Add an endangered animal     | name=Lion King, image=https://upload.wikimedia.org/wikipedia/commons/1/1e/Cecil_the_lion_at_Hwange_National_Park_%284516560206%29.jpg, category=Endangered, health=healthy age=young |  Animal is added and user redirected to animal list page    |
-| Add a thriving animal   | name=Mindy,  image=Lion King, speciesId=1 image=https://upload.wikimedia.org/wikipedia/commons/1/1e/Cecil_the_lion_at_Hwange_National_Park_%284516560206%29.jpg, category=Thriving  | Animal is added and user redirected to animal list page
+| Add an endangered animal     | name=Lion King, image=https://wildlife_tracker/image.jpg, category=Endangered, health=healthy age=young |  Animal is added and user redirected to animal list page    |
+| Add a thriving animal   | name=Mindy,  image=Lion King, speciesId=1 image=https://wildlife_tracker/image.jpg, category=Thriving  | Animal is added and user redirected to animal list page
 | Add a sighting  | locationId=1, rangerId=1 | Sighting added and user redirected to sighting list page   |
 | Add animals sighted to sighting | animalId=1, sightingId=1   | Selected animal sighted added to sighting data and user redirected to sighting details page|
 | Read an endangered animal's data | id=1  | User redirected to endangered animal profile page |   
@@ -43,8 +43,8 @@ The Java application allows users to track wildlife sightings in an area by reco
 | Read all sightings' data | No input required |  User redirected to sightings' list page |
 | Read sighting's data based on location | locationId=1 |  User redirected to location's page and can view what sightings have been reported at specified location |
 |Read sighting's data based on ranger| rangerId=1 | User redirected to ranger's page and can view sightings reported by each ranger |
-| Update an endangered animal's data | name=Cecil, speciesId=2 image=https://upload.wikimedia.org/wikipedia/commons/1/1e/Cecil_the_lion_at_Hwange_National_Park_%284516560206%29.jpg, category=Endangered, health=ill age=young | Endangered animal's data is updated and user redirected to endangered animal's profile page |
-| Update a thriving animal's data | name=Mindy Starr,  image=Lion King, speciesId=1 image=https://upload.wikimedia.org/wikipedia/commons/1/1e/Cecil_the_lion_at_Hwange_National_Park_%284516560206%29.jpg, category=Thriving  | Thriving animal's data is updated and user redirected to thriving animal's profile page |
+| Update an endangered animal's data | name=Cecil, speciesId=2 image=https://wildlife_tracker/image.jpg, category=Endangered, health=ill age=young | Endangered animal's data is updated and user redirected to endangered animal's profile page |
+| Update a thriving animal's data | name=Mindy Starr,  image=Lion King, speciesId=1 image=https://wildlife_tracker/image.jpg, category=Thriving  | Thriving animal's data is updated and user redirected to thriving animal's profile page |
 | Update s sighting's data | locationId=1, rangerId=3 | Sighting data updated and user redirected to sighting's details page |
 | Update animals sighted to sighting data | animalId=1, sightingId=4 | Sighted animals' data recorded alongside other sighting details |
 | Delete an endangered animal data | animalId=1 | Endangered animal's data is deleted and user redirected to animal list page |
