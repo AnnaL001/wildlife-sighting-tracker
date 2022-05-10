@@ -17,6 +17,10 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     this.sql2o = sql2o;
   }
 
+  /**
+   * Function to insert sighting data into database
+   * @param data Sighting class instance
+   */
   @Override
   public void add(Sighting data) {
     String insertQuery = "INSERT INTO sightings (locationid, rangerid, reportedat) VALUES (:locationId, :rangerId, now())";
@@ -32,6 +36,9 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
+  /**
+   * Function to retrieve list of sightings' data from the database
+   */
   @Override
   public List<Sighting> getAll() {
     try(Connection connection = sql2o.open()){
@@ -43,6 +50,10 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
+  /**
+   * Function to retrieve a sighting's data from the database
+   * @param id A sighting's id
+   */
   @Override
   public Sighting get(int id) {
     try(Connection connection = sql2o.open()) {
@@ -55,6 +66,10 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
+  /**
+   * Function to update a sighting's data
+   * @param data Sighting class instance
+   */
   @Override
   public void update(Sighting data) {
     String updateQuery = "UPDATE sightings SET (locationid, rangerid, reportedat) = (:locationId, :rangerId, :reportedAt) WHERE id=:id";
@@ -70,6 +85,11 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
+  /**
+   * Function to add animals sighted in a location by a ranger
+   * @param animalId An animal's id
+   * @param sightingId A sighting's id
+   */
   public void addAnimalToSighting(int sightingId, int animalId){
     try(Connection connection = sql2o.open()) {
       String insertQuery = "INSERT INTO animals_sightings (animalid, sightingId) VALUES (:animalId, :sightingId)";
@@ -80,6 +100,11 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
+  /**
+   * Function to update animals sighted in a location by a ranger
+   * @param animalId An animal's id
+   * @param sightingId A sighting's id
+   */
   public void removeAnimalFromSighting(int sightingId, int animalId){
     try(Connection connection = sql2o.open()){
       String deleteQuery = "DELETE FROM animals_sightings WHERE animalid=:animalId AND sightingid = :sightingId";
@@ -90,6 +115,10 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
+  /**
+   * Function to retrieve sightings based on a ranger
+   * @param rangerId A ranger's id
+   */
   public List<Sighting> getSightingsByRangers(int rangerId){
     String selectQuery = "SELECT * FROM sightings WHERE rangerid = :rangerId";
     try(Connection connection = sql2o.open()){
@@ -102,6 +131,10 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
+  /**
+   * Function to retrieve sightings based on location
+   * @param locationId A location's id
+   */
   public List<Sighting> getSightingsByLocations(int locationId){
     String selectQuery = "SELECT * FROM sightings WHERE locationid = :locationId";
     try(Connection connection = sql2o.open()){
@@ -114,6 +147,10 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
+  /**
+   * Function to retrieve a list of animals sighted
+   * @param id A sighting's id
+   */
   public List<Animal> getAnimals(int id){
     try(Connection connection = sql2o.open()){
       List<Animal> animals = new ArrayList<>();
@@ -139,6 +176,10 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
+  /**
+   * Function to delete a sighting's data
+   * @param id A sighting's id
+   */
   @Override
   public void delete(int id) {
     String deleteQuery = "DELETE from sightings WHERE id=:id";
@@ -160,6 +201,9 @@ public class Sql2oSightingDao implements MutableDatabaseDao<Sighting> {
     }
   }
 
+  /**
+   * Function to clear all sightings' data from the database
+   */
   @Override
   public void deleteAll() {
     String deleteQuery = "DELETE from sightings";

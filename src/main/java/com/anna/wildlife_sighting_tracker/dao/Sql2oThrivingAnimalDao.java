@@ -15,6 +15,10 @@ public class Sql2oThrivingAnimalDao implements MutableDatabaseDao<ThrivingAnimal
     this.sql2o = sql2o;
   }
 
+  /**
+   * Function to insert thriving animal data into database
+   * @param data ThrivingAnimal instance
+   */
   @Override
   public void add(ThrivingAnimal data) {
     String insertQuery = "INSERT INTO animals (image, name, speciesid, category) VALUES (:image, :name, :speciesId, :category)";
@@ -32,6 +36,9 @@ public class Sql2oThrivingAnimalDao implements MutableDatabaseDao<ThrivingAnimal
     }
   }
 
+  /**
+   * Function to retrieve list of thriving animals' data from the database
+   */
   @Override
   public List<ThrivingAnimal> getAll() {
     try(Connection connection = sql2o.open()){
@@ -41,6 +48,10 @@ public class Sql2oThrivingAnimalDao implements MutableDatabaseDao<ThrivingAnimal
     }
   }
 
+  /**
+   * Function to retrieve a thriving animal's data from the database
+   * @param id A thriving animal's id
+   */
   @Override
   public ThrivingAnimal get(int id) {
     try(Connection connection = sql2o.open()){
@@ -51,6 +62,10 @@ public class Sql2oThrivingAnimalDao implements MutableDatabaseDao<ThrivingAnimal
     }
   }
 
+  /**
+   * Function to update a thriving animal's data
+   * @param data ThrivingAnimal instance
+   */
   @Override
   public void update(ThrivingAnimal data) {
     String updateQuery = "UPDATE animals SET (image, name, speciesid) = (:image, :name, :speciesId) WHERE id=:id";
@@ -66,6 +81,10 @@ public class Sql2oThrivingAnimalDao implements MutableDatabaseDao<ThrivingAnimal
     }
   }
 
+  /**
+   * Function to delete a thriving animal's data
+   * @param id A thriving animal's id
+   */
   @Override
   public void delete(int id) {
     String deleteQuery = "DELETE from animals WHERE id=:id AND category = 'Thriving'";
@@ -87,6 +106,9 @@ public class Sql2oThrivingAnimalDao implements MutableDatabaseDao<ThrivingAnimal
     }
   }
 
+  /**
+   * Function to clear all thriving animals' data from the database
+   */
   @Override
   public void deleteAll() {
     String deleteQuery = "DELETE from animals WHERE category = 'Thriving'";

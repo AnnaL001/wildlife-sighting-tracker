@@ -15,6 +15,10 @@ public class Sql2oEndangeredAnimalDao implements MutableDatabaseDao<EndangeredAn
     this.sql2o = sql2o;
   }
 
+  /**
+   * Function to insert endangered animal data into database
+   * @param data EndangeredAnimal instance
+   */
   @Override
   public void add(EndangeredAnimal data) {
     String insertQuery = "INSERT INTO animals (image, name, speciesid, health, age, category) VALUES (:image, :name, :speciesId, :health, :age, :category)";
@@ -34,6 +38,9 @@ public class Sql2oEndangeredAnimalDao implements MutableDatabaseDao<EndangeredAn
     }
   }
 
+  /**
+   * Function to retrieve list of endangered animals' data from the database
+   */
   @Override
   public List<EndangeredAnimal> getAll() {
     try(Connection connection = sql2o.open()){
@@ -43,6 +50,10 @@ public class Sql2oEndangeredAnimalDao implements MutableDatabaseDao<EndangeredAn
     }
   }
 
+  /**
+   * Function to retrieve an endangered animal's data from the database
+   * @param id An endangered animal's id
+   */
   @Override
   public EndangeredAnimal get(int id) {
     try(Connection connection = sql2o.open()){
@@ -53,6 +64,10 @@ public class Sql2oEndangeredAnimalDao implements MutableDatabaseDao<EndangeredAn
     }
   }
 
+  /**
+   * Function to update an endangered animal's data
+   * @param data EndangeredAnimal instance
+   */
   @Override
   public void update(EndangeredAnimal data) {
     String updateQuery = "UPDATE animals SET (image, name, speciesid, health, age) = (:image, :name, :speciesId, :health, :age) WHERE id=:id";
@@ -70,6 +85,10 @@ public class Sql2oEndangeredAnimalDao implements MutableDatabaseDao<EndangeredAn
     }
   }
 
+  /**
+   * Function to delete an endangered animal's data
+   * @param id An endangered animal's id
+   */
   @Override
   public void delete(int id) {
     String deleteQuery = "DELETE from animals WHERE id=:id AND category = 'Endangered'";
@@ -91,6 +110,9 @@ public class Sql2oEndangeredAnimalDao implements MutableDatabaseDao<EndangeredAn
     }
   }
 
+  /**
+   * Function to clear all endangered animals' data from the database
+   */
   @Override
   public void deleteAll() {
     String deleteQuery = "DELETE from animals WHERE category = 'Endangered'";

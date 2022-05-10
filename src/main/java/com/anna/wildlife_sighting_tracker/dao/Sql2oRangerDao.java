@@ -15,6 +15,9 @@ public class Sql2oRangerDao implements ImmutableDatabaseDao<Ranger> {
     this.sql2o = sql2o;
   }
 
+  /**
+   * Function to retrieve list of rangers' data from the database
+   */
   @Override
   public List<Ranger> getAll() {
     try(Connection connection = sql2o.open()){
@@ -26,6 +29,10 @@ public class Sql2oRangerDao implements ImmutableDatabaseDao<Ranger> {
     }
   }
 
+  /**
+   * Function to retrieve a ranger's data from the database
+   * @param id A ranger's id
+   */
   @Override
   public Ranger get(int id) {
     try(Connection connection = sql2o.open()){

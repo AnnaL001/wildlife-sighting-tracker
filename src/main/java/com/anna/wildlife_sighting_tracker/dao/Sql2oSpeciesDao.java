@@ -15,6 +15,9 @@ public class Sql2oSpeciesDao implements ImmutableDatabaseDao<Species> {
     this.sql2o = sql2o;
   }
 
+  /**
+   * Function to retrieve list of species' data from the database
+   */
   @Override
   public List<Species> getAll() {
     try(Connection connection = sql2o.open()){
@@ -26,6 +29,10 @@ public class Sql2oSpeciesDao implements ImmutableDatabaseDao<Species> {
     }
   }
 
+  /**
+   * Function to retrieve a species' data from the database
+   * @param id A species' id
+   */
   @Override
   public Species get(int id) {
     try(Connection connection = sql2o.open()){

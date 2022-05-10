@@ -15,6 +15,9 @@ public class Sql2oLocationDao implements ImmutableDatabaseDao<Location> {
     this.sql2o = sql2o;
   }
 
+  /**
+   * Function to retrieve list of locations' data from the database
+   */
   @Override
   public List<Location> getAll() {
     try(Connection connection = sql2o.open()){
@@ -26,6 +29,10 @@ public class Sql2oLocationDao implements ImmutableDatabaseDao<Location> {
     }
   }
 
+  /**
+   * Function to retrieve a location's data from the database
+   * @param id A location's id
+   */
   @Override
   public Location get(int id) {
     try(Connection connection = sql2o.open()){
