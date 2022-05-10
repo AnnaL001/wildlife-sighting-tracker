@@ -2,9 +2,7 @@ package com.anna.wildlife_sighting_tracker;
 
 import com.anna.wildlife_sighting_tracker.base.Animal;
 import com.anna.wildlife_sighting_tracker.dao.*;
-import com.anna.wildlife_sighting_tracker.models.EndangeredAnimal;
-import com.anna.wildlife_sighting_tracker.models.Sighting;
-import com.anna.wildlife_sighting_tracker.models.ThrivingAnimal;
+import com.anna.wildlife_sighting_tracker.models.*;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
 import org.sql2o.Sql2o;
@@ -218,6 +216,8 @@ public class App {
       List<Sighting> sightings = sightingDao.getAll();
 
       for(Sighting sighting: sightings){
+        sighting.setLocation(locationDao.get(sighting.getLocationId()));
+        sighting.setRanger(rangerDao.get(sighting.getRangerId()));
         DateTimeZone zone = DateTimeZone.forID("Africa/Nairobi");
         LocalDateTime localDateTime = new LocalDateTime(sighting.getReportedAt(), zone);
         sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd HH:mm:ss"));
@@ -303,6 +303,43 @@ public class App {
       sightingDao.removeAnimalFromSighting(sighting.getId(), parseInt(request.params("animal_id")));
       response.redirect("/sightings/" + request.params("sighting_id"));
       return null;
+    });
+
+    // READ SIGHTINGS BY RANGER
+    get("/rangers", (request, response) -> {
+      List<Ranger> rangers = rangerDao.getAll();
+      for (Ranger ranger: rangers){
+        ranger.setSightings(sightingDao.getSightingsByRangers(ranger.getId()));
+        for(Sighting sighting: ranger.getSightings()){
+          DateTimeZone zone = DateTimeZone.forID("Africa/Nairobi");
+          LocalDateTime localDateTime = new LocalDateTime(sighting.getReportedAt(), zone);
+          sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd HH:mm:ss"));
+          sighting.setLocation(locationDao.get(sighting.getLocationId()));
+        }
+      }
+      model.put("rangers", rangers);
+      return new HandlebarsTemplateEngine().render(
+              new ModelAndView(model, "rangers.hbs")
+      );
+    });
+
+    // READ SIGHTINGS BY LOCATION
+    get("/locations", (request, response) -> {
+      List<Location> locations = locationDao.getAll();
+
+      for(Location location: locations){
+        location.setSightings(sightingDao.getSightingsByLocations(location.getId()));
+        for(Sighting sighting: location.getSightings()){
+          DateTimeZone zone = DateTimeZone.forID("Africa/Nairobi");
+          LocalDateTime localDateTime = new LocalDateTime(sighting.getReportedAt(), zone);
+          sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd HH:mm:ss"));
+          sighting.setRanger(rangerDao.get(sighting.getRangerId()));
+        }
+      }
+      model.put("locations", locations);
+      return new HandlebarsTemplateEngine().render(
+              new ModelAndView(model, "locations.hbs")
+      );
     });
   }
 }
