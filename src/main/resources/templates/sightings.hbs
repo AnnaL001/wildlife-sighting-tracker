@@ -15,6 +15,8 @@
         <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Location</th>
+          <th scope="col">Ranger</th>
           <th scope="col">Reported date</th>
           <th scope="col">Action</th>
         </tr>
@@ -22,9 +24,11 @@
         <tbody>
         {{#each sightings}}
           <tr>
-            <th scope="row">{{id}}</th>
+            <th scope="row">{{@index_1}}</th>
+            <td><p class="fw-light">{{location.name}}</p></td>
+            <td><p class="fw-light">{{ranger.name}} | Badge: {{ranger.badge}}</p></td>
             <td>
-              {{formattedReportedDate}}
+              <p class="fw-light">{{formattedReportedDate}}</p>
             </td>
             <td>
               <a href="/sightings/{{id}}">
