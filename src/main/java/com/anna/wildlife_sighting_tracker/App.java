@@ -29,7 +29,8 @@ public class App {
     port(getHerokuAssignedPort());
     staticFileLocation("public/");
     Map<String, Object> model = new HashMap<>();
-    Sql2o sql2o = new Sql2o("jdbc:postgresql://localhost:5432/wildlife_tracker", "anna", "SurMaRoute01$");
+    Sql2o sql2o = new Sql2o("jdbc:postgresql://localhost:5432/wildlife_tracker", "anna", "pol1234");
+
     Sql2oEndangeredAnimalDao endangeredAnimalDao = new Sql2oEndangeredAnimalDao(sql2o);
     Sql2oThrivingAnimalDao thrivingAnimalDao = new Sql2oThrivingAnimalDao(sql2o);
     Sql2oSightingDao sightingDao = new Sql2oSightingDao(sql2o);
@@ -67,14 +68,20 @@ public class App {
     });
 
     post("/animals/endangered-animals", (request, response) -> {
-      EndangeredAnimal endangeredAnimal = new EndangeredAnimal(
-           request.queryParams("image"),
-           request.queryParams("name"),
-           parseInt(request.queryParams("species")),
-           request.queryParams("health"),
-           request.queryParams("age")
-      );
-      endangeredAnimalDao.add(endangeredAnimal);
+      try {
+        EndangeredAnimal endangeredAnimal = new EndangeredAnimal(
+                request.queryParams("image"),
+                request.queryParams("name"),
+                parseInt(request.queryParams("species")),
+                request.queryParams("health"),
+                request.queryParams("age")
+        );
+        endangeredAnimalDao.add(endangeredAnimal);
+      } catch (NullPointerException exception){
+        System.out.println("All form inputs are required");
+        exception.printStackTrace();
+      }
+
       response.redirect("/animals");
       return null;
     });
@@ -94,12 +101,17 @@ public class App {
     });
 
     post("/animals/thriving-animals", (request, response) -> {
-     ThrivingAnimal thrivingAnimal = new ThrivingAnimal(
-              request.queryParams("image"),
-              request.queryParams("name"),
-              parseInt(request.queryParams("species"))
-      );
-      thrivingAnimalDao.add(thrivingAnimal);
+      try {
+        ThrivingAnimal thrivingAnimal = new ThrivingAnimal(
+                request.queryParams("image"),
+                request.queryParams("name"),
+                parseInt(request.queryParams("species"))
+        );
+        thrivingAnimalDao.add(thrivingAnimal);
+      } catch (NullPointerException exception){
+        System.out.println("All form inputs are required");
+        exception.printStackTrace();
+      }
       response.redirect("/animals");
       return null;
     });
@@ -228,7 +240,7 @@ public class App {
         sighting.setRanger(rangerDao.get(sighting.getRangerId()));
         DateTimeZone zone = DateTimeZone.forID("Africa/Nairobi");
         LocalDateTime localDateTime = new LocalDateTime(sighting.getReportedAt(), zone);
-        sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd HH:mm:ss"));
+        sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd HH:mm"));
       }
 
       model.put("sightings", sightings);
@@ -321,7 +333,7 @@ public class App {
         for(Sighting sighting: ranger.getSightings()){
           DateTimeZone zone = DateTimeZone.forID("Africa/Nairobi");
           LocalDateTime localDateTime = new LocalDateTime(sighting.getReportedAt(), zone);
-          sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd HH:mm:ss"));
+          sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd HH:mm"));
           sighting.setLocation(locationDao.get(sighting.getLocationId()));
         }
       }
