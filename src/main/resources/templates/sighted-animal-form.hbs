@@ -10,7 +10,7 @@
             <hr>
               <form action="/sightings/{{sighting.id}}/animals" method="post">
                 <div class="form-floating my-4">
-                  <select class="form-select" id="animal" name="animal" aria-label="Select animal">
+                  <select class="form-select" id="animal" name="animal" aria-label="Select animal" required>
                     {{#each animals}}
                       <option value="{{id}}">{{name}} | Category: {{category}}</option>
                     {{/each}}
