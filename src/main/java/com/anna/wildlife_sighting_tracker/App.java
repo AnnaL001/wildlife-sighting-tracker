@@ -30,7 +30,6 @@ public class App {
     staticFileLocation("public/");
     Map<String, Object> model = new HashMap<>();
     Sql2o sql2o = new Sql2o("jdbc:postgresql://localhost:5432/wildlife_tracker", "anna", "pol1234");
-
     Sql2oEndangeredAnimalDao endangeredAnimalDao = new Sql2oEndangeredAnimalDao(sql2o);
     Sql2oThrivingAnimalDao thrivingAnimalDao = new Sql2oThrivingAnimalDao(sql2o);
     Sql2oSightingDao sightingDao = new Sql2oSightingDao(sql2o);
@@ -240,7 +239,7 @@ public class App {
         sighting.setRanger(rangerDao.get(sighting.getRangerId()));
         DateTimeZone zone = DateTimeZone.forID("Africa/Nairobi");
         LocalDateTime localDateTime = new LocalDateTime(sighting.getReportedAt(), zone);
-        sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd HH:mm"));
+        sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd hh:mm aa"));
       }
 
       model.put("sightings", sightings);
@@ -333,7 +332,7 @@ public class App {
         for(Sighting sighting: ranger.getSightings()){
           DateTimeZone zone = DateTimeZone.forID("Africa/Nairobi");
           LocalDateTime localDateTime = new LocalDateTime(sighting.getReportedAt(), zone);
-          sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd HH:mm"));
+          sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd hh:mm aa"));
           sighting.setLocation(locationDao.get(sighting.getLocationId()));
         }
       }
@@ -352,7 +351,7 @@ public class App {
         for(Sighting sighting: location.getSightings()){
           DateTimeZone zone = DateTimeZone.forID("Africa/Nairobi");
           LocalDateTime localDateTime = new LocalDateTime(sighting.getReportedAt(), zone);
-          sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd HH:mm:ss"));
+          sighting.setFormattedReportedDate(localDateTime.toString("yyyy-MMMM-dd hh:mm aa"));
           sighting.setRanger(rangerDao.get(sighting.getRangerId()));
         }
       }
