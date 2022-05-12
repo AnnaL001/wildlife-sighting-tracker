@@ -23,7 +23,7 @@
                 <div class="form-floating my-4">
                   <select class="form-select" id="species" name="species" aria-label="Select animal species">
                     {{#each species}}
-                      {{#if 'animal.speciesId == id'}}
+                      {{#if animal.speciesId}}
                         <option value="{{id}}" selected>{{name}}</option>
                       {{else}}
                         <option value="{{id}}">{{name}}</option>
