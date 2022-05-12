@@ -33,7 +33,7 @@ The Java application allows users to track wildlife sightings in an area by reco
 | **Behavior**                              | **Input Example**                           | **Output**                                                         |
 |-------------------------------------------|:--------------------------------------------|:-------------------------------------------------------------------|
 | Add an endangered animal     | name=Lion King, image=https://wildlife_tracker/image.jpg, category=Endangered, health=healthy age=young |  Animal is added and user redirected to animal list page    |
-| Add a thriving animal   | name=Mindy,  image=Lion King, speciesId=1 image=https://wildlife_tracker/image.jpg, category=Thriving  | Animal is added and user redirected to animal list page
+| Add a thriving animal   | name=Mindy,  image=Lion King, speciesId=1 image=https://wildlife_tracker/image.jpg, category=Thriving  | Animal is added and user redirected to animal list page |
 | Add a sighting  | locationId=1, rangerId=1 | Sighting added and user redirected to sighting list page   |
 | Add animals sighted to sighting | animalId=1, sightingId=1   | Selected animal sighted added to sighting data and user redirected to sighting details page|
 | Read an endangered animal's data | id=1  | User redirected to endangered animal profile page |   
@@ -70,7 +70,7 @@ The Java application allows users to track wildlife sightings in an area by reco
 - Postgresql
 
 ## Known bugs
-The form selects do not automotically set the selected value as the current value during updating data.
+The form selects do not automatically set the selected value as the current value in the database when updating data.
 
 ## Support and contact details
 
