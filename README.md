@@ -61,6 +61,7 @@ The Java application allows users to track wildlife sightings in an area by reco
 - Handlebars 
 - Gradle
 - Maven
+- Joda Time
 
 ## Technologies Used
 
