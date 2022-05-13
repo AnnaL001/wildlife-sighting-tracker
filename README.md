@@ -72,7 +72,7 @@ The Java application allows users to track wildlife sightings in an area by reco
 - Postgresql
 
 ## Known bugs
-The form selects do not automatically set the selected value as the current value in the database when updating data.
+The form selects do not automatically set the selected value as the current value in the database, when updating data.
 
 ## Support and contact details
 
