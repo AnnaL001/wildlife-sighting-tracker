@@ -16,7 +16,7 @@ The Java application allows users to track wildlife sightings in an area by reco
 - In the case of IntelliJ, to navigate you can reference their documentation https://www.jetbrains.com/help/idea/getting-started.html
 - Commands to set up the database are as listed below: <br>
   ```
-    In psql
+    /* In psql */
     CREATE DATABASE wildlife_tracker;
     \c wildlife_tracker;
     CREATE TABLE animals (id serial PRIMARY KEY, image varchar, name varchar, health varchar, age varchar, category varchar);
