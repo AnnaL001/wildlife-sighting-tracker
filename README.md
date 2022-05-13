@@ -14,7 +14,7 @@ The Java application allows users to track wildlife sightings in an area by reco
 - To access the Java application's code locally, you can clone the main branch or download the ZIP folder via the 'Code' button
 - Once locally, you can view/run the Java application's code via a text editor(VS Code or Sublime Text) or an IDE(IntelliJ).
 - In the case of IntelliJ, to navigate you can reference their documentation https://www.jetbrains.com/help/idea/getting-started.html
-- Commands to set up the database are as listed below: <br>
+- Commands to set up the databases are as listed below: <br>
   ```
     /* In psql */
     CREATE DATABASE wildlife_tracker;
