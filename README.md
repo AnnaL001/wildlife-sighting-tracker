@@ -18,6 +18,7 @@ The Java application allows users to track wildlife sightings in an area by reco
   ```
     In psql
     CREATE DATABASE wildlife_tracker;
+    \c wildlife_tracker;
     CREATE TABLE animals (id serial PRIMARY KEY, image varchar, name varchar, health varchar, age varchar, category varchar);
     CREATE TABLE sightings (id serial PRIMARY KEY, locationid int, rangerid int, reportedat timestamp);
     CREATE TABLE rangers (id serial PRIMARY KEY, name varchar, badge varchar UNIQUE, phone varchar UNIQUE, email varchar UNIQUE);
