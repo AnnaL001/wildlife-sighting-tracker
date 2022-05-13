@@ -3,7 +3,7 @@
 
 ## Description
 
-The Java application allows users to track wildlife sightings in an area by recording animal data such as whether they are endangered or not, their species and sighting data; the animal sighted, the location, who sighted the animal and the time of reporting. Moreover, a user can record multiple animals/species sighted at the same time. In addition to this, a user can view sightings based on location and the rangers that reported it. Form validation has also been included to validate user input. The application also contains JUnit tests that check that the backend logic is working as expected in various scenarios as listed in the Behavior Driven Development section below. That is, in the development of the application TDD(Test Driven Development) has been used alongside BDD(Behavior Driven Development). 
+The Java application allows users to track wildlife sightings in an area by recording animal data such as whether they are endangered or not, their species and sighting data; the animal sighted, the location, who sighted the animal and the time of reporting. Moreover, a user can record multiple animals/species sighted at the same time. In addition to this, a user can view sightings based on location and the rangers that reported it. Form validation has also been included to validate user input. Currently, the list of rangers and locations are predefined thus readonly. The application also contains JUnit tests that check that the backend logic is working as expected in various scenarios as listed in the Behavior Driven Development section below. That is, in the development of the application TDD(Test Driven Development) has been used alongside BDD(Behavior Driven Development). 
 
 #### By **[Lynn Nyangon](https://github.com/AnnaL001)**
 
@@ -14,10 +14,11 @@ The Java application allows users to track wildlife sightings in an area by reco
 - To access the Java application's code locally, you can clone the main branch or download the ZIP folder via the 'Code' button
 - Once locally, you can view/run the Java application's code via a text editor(VS Code or Sublime Text) or an IDE(IntelliJ).
 - In the case of IntelliJ, to navigate you can reference their documentation https://www.jetbrains.com/help/idea/getting-started.html
-- Commands to set up the database are as listed below: <br>
+- Commands to set up the databases(wildlife_tracker and wildlife_tracker_test) are as listed below: <br>
   ```
-    In psql
+    /* In psql */
     CREATE DATABASE wildlife_tracker;
+    \c wildlife_tracker;
     CREATE TABLE animals (id serial PRIMARY KEY, image varchar, name varchar, health varchar, age varchar, category varchar);
     CREATE TABLE sightings (id serial PRIMARY KEY, locationid int, rangerid int, reportedat timestamp);
     CREATE TABLE rangers (id serial PRIMARY KEY, name varchar, badge varchar UNIQUE, phone varchar UNIQUE, email varchar UNIQUE);
@@ -33,7 +34,7 @@ The Java application allows users to track wildlife sightings in an area by reco
 | **Behavior**                              | **Input Example**                           | **Output**                                                         |
 |-------------------------------------------|:--------------------------------------------|:-------------------------------------------------------------------|
 | Add an endangered animal     | name=Lion King, image=https://wildlife_tracker/image.jpg, category=Endangered, health=healthy age=young |  Animal is added and user redirected to animal list page    |
-| Add a thriving animal   | name=Mindy,  image=Lion King, speciesId=1 image=https://wildlife_tracker/image.jpg, category=Thriving  | Animal is added and user redirected to animal list page
+| Add a thriving animal   | name=Mindy,  image=Lion King, speciesId=1 image=https://wildlife_tracker/image.jpg, category=Thriving  | Animal is added and user redirected to animal list page |
 | Add a sighting  | locationId=1, rangerId=1 | Sighting added and user redirected to sighting list page   |
 | Add animals sighted to sighting | animalId=1, sightingId=1   | Selected animal sighted added to sighting data and user redirected to sighting details page|
 | Read an endangered animal's data | id=1  | User redirected to endangered animal profile page |   
@@ -60,6 +61,7 @@ The Java application allows users to track wildlife sightings in an area by reco
 - Handlebars 
 - Gradle
 - Maven
+- Joda Time
 
 ## Technologies Used
 
@@ -70,7 +72,7 @@ The Java application allows users to track wildlife sightings in an area by reco
 - Postgresql
 
 ## Known bugs
-The form selects do not automotically set the selected value as the current value during updating data.
+The form selects do not automatically set the selected value as the current value in the database, when updating data.
 
 ## Support and contact details
 
