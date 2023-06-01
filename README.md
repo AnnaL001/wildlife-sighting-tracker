@@ -5,6 +5,8 @@
 
 The Java application allows users to track wildlife sightings in an area by recording animal data such as whether they are endangered or not, their species and sighting data; the animal sighted, the location, who sighted the animal and the time of reporting. Moreover, a user can record multiple animals/species sighted at the same time. In addition to this, a user can view sightings based on location and the rangers that reported it. Form validation has also been included to validate user input. Currently, the list of rangers and locations are predefined thus readonly. The application also contains JUnit tests that check that the backend logic is working as expected in various scenarios as listed in the Behavior Driven Development section below. That is, in the development of the application TDD(Test Driven Development) has been used alongside BDD(Behavior Driven Development). 
 
+**Hosting to be moved from Heroku**
+
 #### By **[Lynn Nyangon](https://github.com/AnnaL001)**
 
 ## Setup/Installation Requirements
